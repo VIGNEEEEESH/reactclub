@@ -32,10 +32,12 @@ function App() {
        <Route exact path="/ClubDiv" element={<ClubDiv/>}/>
        <Route exact path="/Uclub" element={<Uclub/>}/>
        <Route exact path="/Sclub" element={<Sclub/>}/>
-       <Route exact path="/Tech" element={<Tech/>}/>
+       
        <Route exact path="/COE" element={<COE/>}/>
        <Route exact path="/Calender" element={<Calendar/>}/>
        <Route exact path="/Login" element={<Login/>}/>
+       <Route path="/clubs/:id" element={<Tech/>}>
+        </Route>
       </Routes>
       <Footer/>
     </Router>

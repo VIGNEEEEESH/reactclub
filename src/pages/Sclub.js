@@ -25,13 +25,13 @@ import Tech from "./School_Clubs/Tech";
 function Sclub() {
   const navigate = useNavigate();
 function tech(){
-  navigate("/Tech")
+  navigate("/clubs/1")
 
 }
 async function fetchData(id) {
   try {
-    const response = await fetch(`https://example.com/api/data/${id}`, {
-      method: 'POST'
+    const response = await fetch(`https://example.com/api/club/${id}`, {
+      method: 'GET'
     });
     
     const data = await response.json();

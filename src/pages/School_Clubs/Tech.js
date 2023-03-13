@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import logo from "../../components/club_logos/twelve.png"
 import { Dropdown } from "react-bootstrap"
 import Card from 'react-bootstrap/Card';
@@ -6,7 +6,13 @@ import CardGroup from 'react-bootstrap/CardGroup';
 import "../../Css files/Tech.css"
 import P from "../../components/images/PTechnology.jpg"
 import VP from "../../components/images/VTechnology.jpg"
+import { useParams } from "react-router-dom";
 function Tech(props){
+  const {id}=useParams()
+  useEffect(() => {
+    console.log(id)
+  
+  }, [])
   
     
         return(
