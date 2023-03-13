@@ -1,0 +1,3 @@
+[submodule "student-initiatives-backend"]
+	path = student-initiatives-backend
+	url = https://github.com/yodenharsh/student-initiatives-backend
