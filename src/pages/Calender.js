@@ -1,64 +1,66 @@
-import React, { useState } from 'react';
-import Calendar from 'react-calendar';
-import 'react-calendar/dist/Calendar.css';
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
+import React, { useState } from "react";
+import "../Css files/Calender.css"
 
-const EventCalendar = () => {
-  const [date, setDate] = useState(new Date());
+const Calendar = () => {
   const [events, setEvents] = useState([]);
+  const [title, setTitle] = useState("");
+  const [date, setDate] = useState("");
+  const [description, setDescription] = useState("");
 
-  const handleDateChange = (date) => {
-    setDate(date);
-  };
-
-  const handleAddEvent = () => {
+  const handleAddEvent = (e) => {
+    e.preventDefault();
     const newEvent = {
+      title: title,
       date: date,
-      title: prompt('Enter event title'),
-      description: prompt('Enter event description'),
+      description: description,
     };
     setEvents([...events, newEvent]);
+    setTitle("");
+    setDate("");
+    setDescription("");
   };
 
-  const handleEditEvent = (index) => {
-    const eventToEdit = events[index];
-    const editedEvent = {
-      ...eventToEdit,
-      title: prompt('Enter new event title', eventToEdit.title),
-      description: prompt(
-        'Enter new event description',
-        eventToEdit.description
-      ),
-    };
-    const newEvents = [...events];
-    newEvents[index] = editedEvent;
-    setEvents(newEvents);
+  const handleDeleteEvent = (eventIndex) => {
+    setEvents(events.filter((event, index) => index !== eventIndex));
   };
-
-  const handleDeleteEvent = (index) => {
-    const newEvents = [...events];
-    newEvents.splice(index, 1);
-    setEvents(newEvents);
-  };
-
-  const eventList = events.map((event, index) => (
-    <div key={index}>
-      <div>{event.title}</div>
-      <div>{event.description}</div>
-      <button onClick={() => handleEditEvent(index)}>Edit</button>
-      <button onClick={() => handleDeleteEvent(index)}>Delete</button>
-    </div>
-  ));
 
   return (
-    <div>
-      <Calendar value={date} onChange={handleDateChange} />
-      <DatePicker selected={date} onChange={handleDateChange} />
-      <button onClick={handleAddEvent}>Add Event</button>
-      {eventList}
+    <div className="calendar">
+      <div className="calendar-header">
+        <h1>Event Calendar</h1>
+        <form onSubmit={handleAddEvent}>
+          <input
+            type="text"
+            placeholder="Event Title"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
+          <input
+            type="date"
+            placeholder="Event Date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+          />
+          <textarea
+            placeholder="Event Description"
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+          ></textarea>
+          <button type="submit">Add Event</button>
+        </form>
+      </div>
+      <div className="calendar-body">
+        {events.map((event, index) => (
+          <div key={index} className="event">
+            <h2>{event.title}</h2>
+            <p>{event.date}</p>
+            <p>{event.description}</p>
+            <button onClick={() => handleDeleteEvent(index)}>Delete</button>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default EventCalendar;
+export default Calendar;
