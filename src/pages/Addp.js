@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component, useState } from 'react'
 import "../Css files/Addp.css"
 function Addp() {
   
-  function schools(){
-
+  const [ss,setSs]=useState("True")
+  function Schools(){
+      setSs("False")
   }
     return (
       <div className="Addp">
@@ -35,8 +36,8 @@ function Addp() {
             <input type="radio"  name="school" value="University Level"/>&nbsp;
             <label > University Level</label>&emsp;
             <input type="radio" name="school" value="School Level"/>&nbsp;
-            <label onClick="schools">School Level</label><br/><br/>
-            <select>
+            <label onClick={Schools}>School Level</label><br/><br/>
+            <select hidden={ss}>
               <option>School of Technology</option>
               <option>School of Business</option>
               <option>School of Architechture</option>
