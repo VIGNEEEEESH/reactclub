@@ -16,6 +16,9 @@ import COE from './pages/COE';
 import ScrollToTop from './pages/ScrollToTop';
 import  Calendar from "./pages/Calender";
 import Admin from "./pages/Admin"
+import Addp from "./pages/Addp"
+import Addco from './pages/Addco';
+import Addsc from './pages/Addsc';
 
 
 
@@ -34,7 +37,9 @@ function App() {
        <Route exact path="/Uclub" element={<Uclub/>}/>
        <Route exact path="/Sclub" element={<Sclub/>}/>
        <Route exact path="/Admin" element={<Admin/>}/>
-       
+       <Route exact path="/Addp" element={<Addp/>}/>
+       <Route exact path="/Addco" element={<Addco/>}/>
+       <Route exact path="/Addsc" element={<Addsc/>}/>
        <Route exact path="/COE" element={<COE/>}/>
        <Route exact path="/Calender" element={<Calendar/>}/>
        <Route exact path="/Login" element={<Login/>}/>
