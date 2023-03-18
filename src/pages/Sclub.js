@@ -22,6 +22,7 @@ import { Select } from "antd";
 import Tech from "./School_Clubs/Tech";
 
 
+
 function Sclub() {
   const navigate = useNavigate();
 function tech(){

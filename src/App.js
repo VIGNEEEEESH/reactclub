@@ -19,6 +19,7 @@ import Admin from "./pages/Admin"
 import Addp from "./pages/Addp"
 import Addco from './pages/Addco';
 import Addsc from './pages/Addsc';
+import COEp from './pages/COEp';
 
 
 
@@ -41,9 +42,11 @@ function App() {
        <Route exact path="/Addco" element={<Addco/>}/>
        <Route exact path="/Addsc" element={<Addsc/>}/>
        <Route exact path="/COE" element={<COE/>}/>
+       <Route path="/COEp" element={<COEp/>}/>
        <Route exact path="/Calender" element={<Calendar/>}/>
        <Route exact path="/Login" element={<Login/>}/>
        <Route path="/clubs/:id" element={<Tech/>}>
+       
         </Route>
       </Routes>
       <Footer/>
