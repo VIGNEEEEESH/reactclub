@@ -1,6 +1,8 @@
 import React, { Component, useState } from 'react'
+import axios from 'axios';
 import url from '../Baseurl'
 import "../Css files/Addp.css"
+import { notification } from 'antd';
 
 function Addp() {
   
@@ -13,11 +15,10 @@ function Addp() {
   const [clubPresidentEmail, setClubPresidentEmail] = useState("")
   const [clubPassword, setClubPassword] = useState("")
   const [clubUniversity, setClubUniversity] = useState("")
-  const [clubSchool, setClubSchool] = useState("")
-  const [clubSchools, setClubSchools] = useState("")
-  function Schools(){
-      setSs("False")
-  }
+  const [schoolsList, setSchoolsList] = useState([{schoolId: 1, schoolName:"School of Tech"}])
+  const [clubSchools, setClubSchools] = useState(0)
+  const [clubLogo, setClubLogo] = useState("")
+  const [file, setFile] = useState();
 
   const handleClubNameChange = (event) => {
     setClubName({value: event.target.value})
@@ -40,14 +41,34 @@ function Addp() {
   const handleClubPasswordChange = (event) => {
     setClubPassword({value: event.target.value})
   }
-  const handleClubUniversityChange = (event) => {
+  const handleClubLogoChange = (event) => {
+    setClubLogo({value: event.target.value})
+    const value=event.taget.value
+    console.log(value)
+  }
+  const handleClubUniversityChange = async (event) => {
+    
+    if(event.target.value === "School Level"){
+      setSs(false)
+      const response = await fetch(url + "api/school/", {
+        method: "GET"
+      })
+      
+      const resJson = await response.json()
+      console.log(resJson)
+      setSchoolsList([...(await resJson)])
+    }
+    else {
+      setSs(true)
+      setClubSchools(0)
+    }
+
     setClubUniversity({value: event.target.value})
   }
-  const handleClubSchoolChange = (event) => {
-    setClubSchool({value: event.target.value})
-  }
+  
   const handleClubSchoolsChange = (event) => {
     setClubSchools({value: event.target.value})
+    console.log(event.target.value)
   }
 
   const onsubmit = async (event) =>{
@@ -55,20 +76,88 @@ function Addp() {
       console.log(clubName)
       const formValues = {
         "clubName": clubName.value,
-        "clubMission": clubMission.value,
-        "clubVision":clubVision.value,
-        "clubPresident":clubPresident.value,
-        "clubVicePresident":clubVicePresident.value,
-        "clubPresidentEmail":clubPresidentEmail.value,
-        "clubPassword":clubPassword.value,
-        "clubPUniversity":clubUniversity.value,
-        "clubSchool":clubSchool.value,
-        "clubSchools":clubSchools.value,
+        "mission": clubMission.value,
+        "vision":clubVision.value,
+        "presidentName":clubPresident.value,
+        "vicePresidentName":clubVicePresident.value,
+        "email":clubPresidentEmail.value,
+        "password":clubPassword.value,
+        "clubSchoolType":clubUniversity.value,
+        "schoolId":clubSchools.value,
       }
+      console.log(formValues)
       const response=await fetch(url+"api/user/",{
-        method:"POST"
+        method:"POST",
+        headers:{
+          "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({...formValues})
       })
+      console.log(await response.json())
+      if(response.ok){
+        if(!formValues.schoolId || formValues.schoolId == 0){
+        delete formValues.schoolId;
+        }
+        const clubresponse = await fetch(url +"api/club/", {
+          method: "POST",
+          body: JSON.stringify({...formValues}),
+          headers: {
+            "Content-Type" : "application/json"
+          }
+        })
+
+        const clubResponseJson = await clubresponse.json()
+        const clubId = await clubResponseJson.clubId;
+
+        const formData = new FormData();
+        formData.append("image", file);
+        try {
+          const res = await axios.put(url+ 
+            `api/club/${clubId}/image/logo`,
+            formData
+          );
+          console.log(res);
+          
+          notification.success({
+            message: `Club ${formValues.clubName} successfully created`,
+            description: `Club email = ${formValues.email}\nPassword = ${formValues.password}\n
+            ID = ${clubId}. Please save the credentials as they can't be seen again`,
+            placement:'topRight'
+          })
+
+        } catch (ex) {
+          console.log(ex);
+        }
+        
+      }
   }
+
+  
+  const uploadFile = (e) => {
+    setFile(e.target.files[0]);
+    const target = e.target
+  	if (target.files && target.files[0]) {
+
+      /*Maximum allowed size in bytes
+        5MB Example
+        Change first operand(multiplier) for your needs*/
+      const maxAllowedSize = 10 * 1024 * 1024;
+      if (target.files[0].size > maxAllowedSize) {
+      	
+       	target.value = ''
+         notification.error({
+          message: `The file size is be less than 10MB`,
+          
+          placement:'top'
+        })
+      }
+  }
+  
+  };
+
+  
+
+
     return (
       <div className="Addp">
         <center>
@@ -98,18 +187,16 @@ function Addp() {
             <label>Select the type of the Club: &nbsp;</label><br/>
             <input onChange={handleClubUniversityChange} type="radio"  name="school" value="University Level" required/>&nbsp;
             <label > University Level</label>&emsp;
-            <input onChange={handleClubSchoolChange} type="radio" name="school" value="School Level" required/>&nbsp;
-            <label onClick={Schools}>School Level</label><br/><br/>
+            <input onChange={handleClubUniversityChange} type="radio" name="school" value="School Level" required/>&nbsp;
+            <label>School Level</label><br/>
             <select onChange={handleClubSchoolsChange} hidden={ss} required>
-              <option>School of Technology</option>
-              <option>School of Business</option>
-              <option>School of Architechture</option>
-              <option>School of Design</option>
-              <option>School of Humanities and Laws</option>
+              { schoolsList.map((entry) => 
+                <option value={entry.schoolId}>{entry.schoolName}</option>
+              )} 
               
-            </select>
-          <label style={{display:"inline"}}> Upload Club's Logo:</label> <input style={{display:"inline"}}type="file" required/>
-<input type="submit" value="button"></input>
+            </select><br/>
+          <label style={{display:"inline"}}> Upload Club's Logo:</label> <input id="file" onChange={uploadFile} style={{display:"inline"}}type="file" required accept="image/png, image/jpeg,.jpg"/>
+<input type="submit" ></input>
             
         </form>
        </div>
