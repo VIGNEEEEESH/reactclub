@@ -20,6 +20,14 @@ import Addp from "./pages/Addp"
 import Addco from './pages/Addco';
 import Addsc from './pages/Addsc';
 import COEp from './pages/COEp';
+import DeleteSchool from './pages/DeleteSchool';
+import DeleteClub from './pages/DeleteClub';
+import DeleteCOE from './pages/DeleteCOE';
+import EditSchool from './pages/EditSchool';
+import EditClub from './pages/EditClub';
+import EditCOE from './pages/EditCOE';
+import Gallery from './pages/Gallery';
+
 
 
 
@@ -47,6 +55,13 @@ function App() {
        <Route path="/COEp" element={<COEp/>}/>
        <Route exact path="/Calender" element={<Calendar/>}/>
        <Route exact path="/Login" element={<Login/>}/>
+       <Route exact path="/DeleteSchool" element={<DeleteSchool/>}/>
+       <Route exact path="/DeleteClub" element={<DeleteClub/>}/>
+       <Route exact path="/DeleteCOE" element={<DeleteCOE/>}/>
+       <Route exact path="/EditSchool" element={<EditSchool/>}/>
+       <Route exact path="/EditClub" element={<EditClub/>}/>
+       <Route exact path="/EditCOE" element={<EditCOE/>}/>
+       <Route exact path="/Gallery" element={<Gallery/>}/>
        <Route path="/clubs/:id" element={<Tech/>}>
        
         </Route>

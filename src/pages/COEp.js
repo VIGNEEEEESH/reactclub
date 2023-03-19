@@ -1,12 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Card from 'react-bootstrap/Card';
 import AAD from '../components/images/COEorg3.png';
-import "../Css files/COEp.css";
+import '../Css files/COEp.css';
 
-  
-class COEp extends React.Component{
-  render(){ 
+const Coe = () => {
+    const [boxCount, setBoxCount] = useState(0);
+
+  const addBox = () => {
+    setBoxCount(boxCount + 1);
+  };
+
+  const removeBox = () => {
+    if (boxCount > 0) {
+      setBoxCount(boxCount - 1);
+    }
+  };
+
+
     return(
     <div className="AAD">
     <CardGroup >
@@ -52,29 +63,25 @@ class COEp extends React.Component{
  
 </div>
 </div>
-</div>
+</div><br/><br/><br/>
+
+<div>
+<center><p id="pic"><u><b>PICTURE GALLERY</b></u></p></center>
+<center><button type="button" className="btn btn-dark" onClick={addBox}><b>Add Event</b></button>&emsp;
+<button type="button" className="btn btn-dark" onClick={removeBox}><b>Remove Event</b></button></center>
 
 <div className="container">
-        <div className="box">
-          <img src="https://source.unsplash.com/1000x800"/>
-          <span>CSS</span>
+        <div className="box1">
+          <img src=""/>
+          <span></span>
         </div>
-        <div className="box">
-          <img src="https://source.unsplash.com/1000x802"/>
-          <span>Image</span>
-        </div>
-        <div className="box">
-          <img src="https://source.unsplash.com/1000x804"/>
-          <span>Hover</span>
-        </div>
-        <div className="box">
-          <img src="https://source.unsplash.com/1000x806"/>
-          <span>Effect</span>
-        </div>
-      </div>
+        {Array.from({ length: boxCount }).map((_, index) => (
+        <div className="box1" key={index}></div>
+      ))}
+        </div>   
 </div>
-
+</div>
 );
 
-}}
-export default COEp;
+}
+export default Coe;

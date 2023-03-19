@@ -5,6 +5,7 @@ import COE from "../components/images/COEorg3.png"
 import Clubs from "../components/images/Student_clubs.png"
 import School from "../components/images/newSchool.png"
 import "../Css files/Admin.css"
+
 export default function Admin() {
   const navigate=useNavigate();
   function NewPage(){
@@ -15,6 +16,16 @@ export default function Admin() {
   }
   function NewSchool(){
     navigate("/Addsc")
+  }
+  
+  function DeleteClub(){
+    navigate("/DeleteClub")
+  }
+  function DeleteCOE(){
+    navigate("/DeleteCOE")
+  }
+  function DeleteSchool(){
+    navigate("/DeleteSchool")
   }
   return (
     
@@ -32,9 +43,7 @@ export default function Admin() {
        <div className="One" style={{display:"inline"}}>
       <button type="button" onClick={NewPage} className="btn btn-dark">Add</button>
     </div><div className="One" style={{display:"inline"}}>
-    <button type="button"  className="btn btn-dark">Edit</button>
-    </div><div className="One" style={{display:"inline"}}>
-    <button type="button"  className="btn btn-dark">Remove</button>
+    <button type="button" onClick={DeleteClub} className="btn btn-dark">Delete</button>
     </div></div>
     </div>
   </div>
@@ -47,9 +56,7 @@ export default function Admin() {
       <div className="One" style={{display:"inline"}}>
       <button type="button" onClick={NewCOE} className="btn btn-dark">Add</button>
     </div><div className="One" style={{display:"inline"}}>
-    <button type="button"  className="btn btn-dark">Edit</button>
-    </div><div className="One" style={{display:"inline"}}>
-    <button type="button"  className="btn btn-dark">Remove</button>
+    <button type="button" onClick={DeleteCOE} className="btn btn-dark">Delete</button>
     </div> </div>
     </div>
   </div>
@@ -60,9 +67,7 @@ export default function Admin() {
       <div className="One" style={{display:"inline"}}>
       <button type="button" onClick={NewSchool} className="btn btn-dark">Add</button>
     </div><div className="One" style={{display:"inline"}}>
-    <button type="button"  className="btn btn-dark">Edit</button>
-    </div><div className="One" style={{display:"inline"}}>
-    <button type="button"  className="btn btn-dark">Remove</button>
+    <button type="button" onClick={DeleteSchool} className="btn btn-dark">Delete</button>
     </div> </div>
     </div>
   </div>

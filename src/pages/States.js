@@ -1,9 +1,18 @@
+import { createStore } from 'redux';
 
-import { createGlobalState } from 'react-hooks-global-state';
-const {setGlobalState,useGlobalState}=createGlobalState({
-    clubId:0,
-    isauth:false,
-    coeId:0
-});
+const initialState = {
+  isAuthenticated: false,
+};
 
-export {useGlobalState,setGlobalState};
+function authReducer(state = initialState, action) {
+  switch (action.type) {
+    case 'LOGIN':
+      return { ...state, isAuthenticated: true };
+    case 'LOGOUT':
+      return { ...state, isAuthenticated: false };
+    default:
+      return state;
+  }
+}
+
+const store = createStore(authReducer);
