@@ -19,7 +19,7 @@ class Header extends React.Component {
             </li>
             
             <li className="nav-item">
-              <NavLink className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : "nav-link text-light")} to="/SC" >Clubs</NavLink>
+              <NavLink className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : "nav-link text-light")} to="/StudentCouncilpage" >Clubs</NavLink>
             </li>
             <li className="nav-item">
               <NavLink className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : "nav-link text-light")} to="/COE" >COE</NavLink>

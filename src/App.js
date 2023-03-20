@@ -65,7 +65,6 @@ function App() {
        <Route exact path="/EditClub" element={<EditClub/>}/>
        <Route exact path="/EditCOE" element={<EditCOE/>}/>
        <Route exact path="/Gallery" element={<Gallery/>}/>
-       
        <Route path="/ClubPage" element={<ClubPage/>}>
        
         </Route>

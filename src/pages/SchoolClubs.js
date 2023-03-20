@@ -27,20 +27,21 @@ import dropdown from "../components/images/dropdown.png"
 
 function SchoolClubs() {
   const [schoolsList, setSchoolsList] = useState([])
-  const [clubsList, setClubsList] = useState([])
+  const [clubsObject, setClubsObject] = useState({})
   const navigate = useNavigate();
 function tech(){
   navigate("/ClubPage")
 }
   useEffect(() => {
+
   const getSchoolsListFromDB = async () => {
+
     const response = await fetch(url + "api/school/", {
       method: "GET"
     })
     const resJSON =await response.json();
     console.log(await resJSON)
-    console.log(resJSON)
-    setSchoolsList([...(await resJSON)])
+    setSchoolsList([...(resJSON)])
     
     
     await resJSON.forEach(getClubsListFromDB)
@@ -53,7 +54,9 @@ function tech(){
     })
     const resJSON = await response.json();
     console.log(await resJSON)
-    setClubsList(...clubsList,{ clubs: [...(await resJSON)], schoolId: schoolId, schoolName: school.schoolName})
+    const tempClubsList = clubsObject
+    tempClubsList[schoolId] = [...(await resJSON)]
+    setClubsObject(tempClubsList)
     
   }
   
@@ -61,107 +64,50 @@ function tech(){
   
     }, [])
 
-
-const onsubmit = async (event) =>{
-  event.preventDefault();
-  const response=await fetch(url+"/api/club/",{
-    method:"GET"
-    
+  useEffect(() => {
+    console.log("Logging clubObject: ")
+    console.log(clubsObject)
+  }, [clubsObject])
   
-  })  
-  }
+
 
         return(
             <center>
             <div className="Sclub">
                 
-               <Dropdown className="d-inline mx-2">
-        <Dropdown.Toggle variant="dark">
-      
-    <Card   style={{ height:"150px",fontFamily: 'League Spartan'}}>
-     <h1>School of technology</h1>
-      
-      <img id="dropdown" src={dropdown} height="47px" />
-    </Card>
-  
-  
+            { schoolsList.map((entry) => 
+            <div className = "card-class">
+                 <Dropdown className="d-inline mx-2 toggle">
+                 <Dropdown.Toggle  variant="dark">
+               
+             <Card   style={{ height:"150px",fontFamily: 'League Spartan'}}>
+              <h1>{entry.schoolName}</h1>
+               
+               <img id="dropdown" src={dropdown} height="47px" />
+             </Card>
+           
+           
+         
+                 </Dropdown.Toggle>
+         
+                 <Dropdown.Menu>
 
-        </Dropdown.Toggle>
+              {/* {
+                clubsObject[entry.schoolId].map((entry) => {
+                  <Dropdown.Item> <img src = {url + `api/club/${entry.clubId}/image/logo`} height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>{entry.clubName}</h4></center>
+                  </Dropdown.Item>
+                })
+              } */}
 
-        <Dropdown.Menu>
-          <Dropdown.Item > <img src={Twelve} onClick={tech} height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Technology Club</h4></center></Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-      
+                   <Dropdown.Item > <img src={Twelve} onClick={tech} height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Technology Club</h4></center></Dropdown.Item>
+                 </Dropdown.Menu>
+               </Dropdown>
+               </div>
+              )} 
 
-      <Dropdown className="d-inline mx-2">
-        <Dropdown.Toggle variant="dark" >
-        <Card   style={{ height:"150px",fontFamily: 'League Spartan'}}>
-     <h1>School of technology</h1>
-      
-      <img id="dropdown" src={dropdown} height="47px" />
-    </Card>
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu style={{height:"450px",overflowY:"auto"}}>
-          <Dropdown.Item href="#"><img src={Four}  height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>AI & Robotics Club</h4></center></Dropdown.Item>
-          <Dropdown.Item href="#"><img src={Eleven} height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Tantra Club</h4></center></Dropdown.Item>
-          <Dropdown.Item href="#"><img src={TwentyThree} height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Humanique Club</h4></center></Dropdown.Item>
-          <Dropdown.Item href="#"><img src={TwentyTwo} height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Finwiz Club</h4></center></Dropdown.Item>
-          <Dropdown.Item href="#"><img src={Six} height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Crowdcore Club</h4></center></Dropdown.Item>
-        
-        </Dropdown.Menu>
-      </Dropdown>
-
-      <Dropdown className="d-inline mx-2">
-        <Dropdown.Toggle variant="dark" >
-        <Card   style={{ height:"150px",fontFamily: 'League Spartan'}}>
-     <h1>School of technology</h1>
-      
-      <img id="dropdown" src={dropdown} height="47px" />
-    </Card>
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu style={{height:"450px",overflowY:"auto"}}>
-          <Dropdown.Item href="#"><img src={Eighteen}  height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Fashion Club</h4></center></Dropdown.Item>
-          <Dropdown.Item href="#"><img src={Eight} height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Interior Design Club</h4></center></Dropdown.Item>
-          <Dropdown.Item href="#"><img src={Fourteen} height="300px"/><center><h5 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Visual Communication Club</h5></center></Dropdown.Item>
-          <Dropdown.Item href="#"><img src={Nineteen} height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Product Design Club</h4></center></Dropdown.Item>
-        
-        </Dropdown.Menu>
-      </Dropdown>
+                     </div>
      
-<div className="Five">
-      <Dropdown className="d-inline mx-2 ">
-        <Dropdown.Toggle variant="dark">
-        <Card   style={{ height:"150px",fontFamily: 'League Spartan'}}>
-     <h1>School of technology</h1>
-      
-      <img id="dropdown" src={dropdown} height="47px" />
-    </Card>
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item href="#">None</Dropdown.Item>
-        </Dropdown.Menu>
-      </Dropdown>
-      <Dropdown className="d-inline mx-2">
-        <Dropdown.Toggle variant="dark">
-        <Card   style={{ height:"150px",fontFamily: 'League Spartan'}}>
-     <h1>School of technology</h1>
-      
-      <img id="dropdown" src={dropdown} height="47px" />
-    </Card>
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item href="#"><img src={Twenty} height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Skribble Club</h4></center></Dropdown.Item>
-
-        </Dropdown.Menu>
-      </Dropdown>
-      </div>
-     
-              </div>
+             
               </center>
    
         );
