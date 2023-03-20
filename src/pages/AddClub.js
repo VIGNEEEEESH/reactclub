@@ -4,7 +4,7 @@ import url from '../Baseurl'
 import "../Css files/Addp.css"
 import { notification } from 'antd';
 
-function Addp() {
+function AddClub() {
   
   const [ss,setSs]=useState("True")
   const [clubName, setClubName] = useState("")
@@ -190,6 +190,7 @@ function Addp() {
             <input onChange={handleClubUniversityChange} type="radio" name="school" value="School Level" required/>&nbsp;
             <label>School Level</label><br/>
             <select onChange={handleClubSchoolsChange} hidden={ss} required>
+            <option value = {0}>Select a club</option>
               { schoolsList.map((entry) => 
                 <option value={entry.schoolId}>{entry.schoolName}</option>
               )} 
@@ -205,4 +206,4 @@ function Addp() {
     )
   }
 
-export default Addp
+export default AddClub

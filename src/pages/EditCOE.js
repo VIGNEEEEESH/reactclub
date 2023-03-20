@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, {  useState } from 'react'
 import "../Css files/Addco.css"
 import url from '../Baseurl'
 import axios from 'axios';

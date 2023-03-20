@@ -3,7 +3,7 @@ import "../Css files/Addco.css"
 import url from '../Baseurl'
 import axios from 'axios';
 import { notification } from 'antd';
-function Addco() {
+function AddCOE() {
   const [COEName, setCOEName] = useState("")
   const [COEMission, setCOEMission] = useState("")
   const [COEVision, setCOEVision] = useState("")
@@ -147,4 +147,4 @@ function Addco() {
     )
   }
 
-export default Addco
+export default AddCOE

@@ -9,7 +9,7 @@ import { notification } from 'antd';
 import loginImg from '../components/images/robot.png'
 
 
-function Addsc() {
+function AddSchool() {
   const [schoolName, setSchoolName] = useState("")
 
   const handleSchoolNameChange = (event) => {
@@ -79,4 +79,4 @@ function Addsc() {
 
 
 
-export default Addsc;
+export default AddSchool;

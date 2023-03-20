@@ -1,5 +1,5 @@
-import React from "react";
-import {useNavigate, Link, Router} from "react-router-dom"
+import React, { useEffect, useState } from "react";
+import {useNavigate, Link, Router, Await} from "react-router-dom"
 import MOne from "../components/schools/school/1.png"
 import MTwo from "../components/schools/school/2.png"
 import MThree from "../components/schools/school/3.png"
@@ -18,29 +18,58 @@ import Fourteen from "../components/club_logos/fourteen.png"
 import Nineteen from "../components/club_logos/nineteen.png"
 import "../Css files/Sclub.css"
 import { Dropdown } from "react-bootstrap";
-import { Select } from "antd";
-import Tech from "./School_Clubs/Tech";
+import { Card, Select,Space } from "antd";
+import url from '../Baseurl'
+import Tech from "./School_Clubs/ClubPage";
+import dropdown from "../components/images/dropdown.png"
 
 
 
-function Sclub() {
+function SchoolClubs() {
+  const [schoolsList, setSchoolsList] = useState([])
+  const [clubsList, setClubsList] = useState([])
   const navigate = useNavigate();
 function tech(){
-  navigate("/clubs/1")
-
+  navigate("/ClubPage")
 }
-async function fetchData(id) {
-  try {
-    const response = await fetch(`https://example.com/api/club/${id}`, {
-      method: 'GET'
-    });
+  useEffect(() => {
+  const getSchoolsListFromDB = async () => {
+    const response = await fetch(url + "api/school/", {
+      method: "GET"
+    })
+    const resJSON =await response.json();
+    console.log(await resJSON)
+    console.log(resJSON)
+    setSchoolsList([...(await resJSON)])
     
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.error(error);
+    
+    await resJSON.forEach(getClubsListFromDB)
   }
-}
+  
+  const getClubsListFromDB = async (school) => {
+    const schoolId=await school.schoolId
+    const response = await fetch(url + `api/school/${schoolId}/clubs`, {
+      method: "GET"
+    })
+    const resJSON = await response.json();
+    console.log(await resJSON)
+    setClubsList(...clubsList,{ clubs: [...(await resJSON)], schoolId: schoolId, schoolName: school.schoolName})
+    
+  }
+  
+  getSchoolsListFromDB();
+  
+    }, [])
+
+
+const onsubmit = async (event) =>{
+  event.preventDefault();
+  const response=await fetch(url+"/api/club/",{
+    method:"GET"
+    
+  
+  })  
+  }
 
         return(
             <center>
@@ -48,7 +77,14 @@ async function fetchData(id) {
                 
                <Dropdown className="d-inline mx-2">
         <Dropdown.Toggle variant="dark">
-         <img src={MOne} height="310px"/>
+      
+    <Card   style={{ height:"150px",fontFamily: 'League Spartan'}}>
+     <h1>School of technology</h1>
+      
+      <img id="dropdown" src={dropdown} height="47px" />
+    </Card>
+  
+  
 
         </Dropdown.Toggle>
 
@@ -60,7 +96,11 @@ async function fetchData(id) {
 
       <Dropdown className="d-inline mx-2">
         <Dropdown.Toggle variant="dark" >
-        <img src={MTwo} height="310px"/>
+        <Card   style={{ height:"150px",fontFamily: 'League Spartan'}}>
+     <h1>School of technology</h1>
+      
+      <img id="dropdown" src={dropdown} height="47px" />
+    </Card>
         </Dropdown.Toggle>
 
         <Dropdown.Menu style={{height:"450px",overflowY:"auto"}}>
@@ -75,7 +115,11 @@ async function fetchData(id) {
 
       <Dropdown className="d-inline mx-2">
         <Dropdown.Toggle variant="dark" >
-        <img src={MFour} height="310px"/>
+        <Card   style={{ height:"150px",fontFamily: 'League Spartan'}}>
+     <h1>School of technology</h1>
+      
+      <img id="dropdown" src={dropdown} height="47px" />
+    </Card>
         </Dropdown.Toggle>
 
         <Dropdown.Menu style={{height:"450px",overflowY:"auto"}}>
@@ -86,24 +130,33 @@ async function fetchData(id) {
         
         </Dropdown.Menu>
       </Dropdown>
+     
+<div className="Five">
+      <Dropdown className="d-inline mx-2 ">
+        <Dropdown.Toggle variant="dark">
+        <Card   style={{ height:"150px",fontFamily: 'League Spartan'}}>
+     <h1>School of technology</h1>
+      
+      <img id="dropdown" src={dropdown} height="47px" />
+    </Card>
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+          <Dropdown.Item href="#">None</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>
       <Dropdown className="d-inline mx-2">
         <Dropdown.Toggle variant="dark">
-        <img src={MThree} height="310px"/>
+        <Card   style={{ height:"150px",fontFamily: 'League Spartan'}}>
+     <h1>School of technology</h1>
+      
+      <img id="dropdown" src={dropdown} height="47px" />
+    </Card>
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
           <Dropdown.Item href="#"><img src={Twenty} height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Skribble Club</h4></center></Dropdown.Item>
 
-        </Dropdown.Menu>
-      </Dropdown>
-<div className="Five">
-      <Dropdown className="d-inline mx-2 ">
-        <Dropdown.Toggle variant="dark">
-         <img src={MFive} height="310px"/>
-        </Dropdown.Toggle>
-
-        <Dropdown.Menu>
-          <Dropdown.Item href="#">None</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>
       </div>
@@ -114,4 +167,4 @@ async function fetchData(id) {
         );
     
 }
-export default Sclub
+export default SchoolClubs

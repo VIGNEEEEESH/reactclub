@@ -7,7 +7,36 @@ import "../../Css files/Tech.css"
 import P from "../../components/images/PTechnology.jpg"
 import VP from "../../components/images/VTechnology.jpg"
 import { useParams } from "react-router-dom";
-function Tech(props){
+import url from '../../Baseurl'
+function ClubPage(props){
+  const [boxCount, setBoxCount] = useState(0);
+
+  const addBox = () => {
+    setBoxCount(boxCount + 1);
+  };
+
+  const removeBox = () => {
+    if (boxCount > 0) {
+      setBoxCount(boxCount - 1);
+    }
+  };
+  const onsubmit = async (event) =>{
+    event.preventDefault();
+   
+    
+    const response=await fetch(url+"/api/club/{clubId}",{
+      method:"GET",
+      headers:{
+        "Content-Type" : "application/json"
+      },
+    
+    })
+    
+
+      
+      
+    }
+
   const {id}=useParams()
   useEffect(() => {
     console.log(id)
@@ -34,7 +63,7 @@ function Tech(props){
   const handleDeleteEvent = (eventIndex) => {
     setEvents(events.filter((event, index) => index !== eventIndex));
   };
-  
+
     
         return(
             <div className="Tech">
@@ -139,27 +168,26 @@ function Tech(props){
       </div>
     </div>
 
+    <br/><br/><br/>
+
+<div>
+<center><p id="pic"><u><b>PICTURE GALLERY</b></u></p></center>
+<center><button type="button" className="btn btn-dark" onClick={addBox}><b>Add Event</b></button>&emsp;
+<button type="button" className="btn btn-dark" onClick={removeBox}><b>Remove Event</b></button></center>
+
 <div className="container">
-                <div className="box">
-                  <img src="https://source.unsplash.com/1000x800"/>
-                  <span>CSS</span>
-                </div>
-                <div className="box">
-                  <img src="https://source.unsplash.com/1000x802"/>
-                  <span>Image</span>
-                </div>
-                <div className="box">
-                  <img src="https://source.unsplash.com/1000x804"/>
-                  <span>Hover</span>
-                </div>
-                <div className="box">
-                  <img src="https://source.unsplash.com/1000x806"/>
-                  <span>Effect</span>
-                </div>
-              </div>
+        <div className="box1">
+          <img src="" alt="img" />
+          <span></span>
+        </div>
+        {Array.from({ length: boxCount }).map((_, index) => (
+        <div className="box1" key={index}></div>
+      ))}
+        </div>   
+</div>
    </div>
     
         );
     
 }
-export default Tech
+export default ClubPage

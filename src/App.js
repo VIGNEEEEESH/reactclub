@@ -3,23 +3,22 @@ import './App.css';
 import Home from "./pages/Home"
 import Header from "./pages/Header"
 import Footer from "./pages/Footer"
-import SC from "./pages/SC"
-import ClubDiv from "./pages/ClubDiv"
-import Uclub from "./pages/Uclub"
-import Sclub from "./pages/Sclub"
-import Tech from "./pages/School_Clubs/Tech"
+import StudentCouncilpage from "./pages/StudentCouncilpage"
+import ClubsDivision from "./pages/ClubsDivision"
+import UniversityClubs from "./pages/UniversityClubs"
+import SchoolClubs from "./pages/SchoolClubs"
+import ClubPage from "./pages/School_Clubs/ClubPage"
 import Login from "./pages/Login"
-import Licence from './pages/License';
-import Twelve from "./components/club_logos/twelve.png"
-import {BrowserRouter as Router, Redirect, Route,Routes  } from "react-router-dom"
+
+import {BrowserRouter as Router, Route,Routes  } from "react-router-dom"
 import COE from './pages/COE';
 import ScrollToTop from './pages/ScrollToTop';
 import  Calendar from "./pages/Calender";
 import Admin from "./pages/Admin"
-import Addp from "./pages/Addp"
-import Addco from './pages/Addco';
-import Addsc from './pages/Addsc';
-import COEp from './pages/COEp';
+import AddClub from "./pages/AddClub"
+import AddCOE from './pages/AddCOE';
+import AddSchool from './pages/AddSchool';
+
 import DeleteSchool from './pages/DeleteSchool';
 import DeleteClub from './pages/DeleteClub';
 import DeleteCOE from './pages/DeleteCOE';
@@ -27,6 +26,9 @@ import EditSchool from './pages/EditSchool';
 import EditClub from './pages/EditClub';
 import EditCOE from './pages/EditCOE';
 import Gallery from './pages/Gallery';
+import COEList from './pages/COEList';
+import COEpage from './pages/COEpage';
+
 
 
 
@@ -43,17 +45,18 @@ function App() {
       <Header/>
       <Routes>
        <Route exact path="/" element={<Home/>}/>
-       <Route exact path="/SC" element={<SC/>}/>
-       <Route exact path="/ClubDiv" element={<ClubDiv/>}/>
-       <Route exact path="/Uclub" element={<Uclub/>}/>
-       <Route exact path="/Sclub" element={<Sclub/>}/>
+       <Route exact path="/StudentCouncilpage" element={<StudentCouncilpage/>}/>
+       <Route exact path="/ClubsDivision" element={<ClubsDivision/>}/>
+       <Route exact path="/UniversityClubs" element={<UniversityClubs/>}/>
+       <Route exact path="/SchoolClubs" element={<SchoolClubs/>}/>
        <Route exact path="/Admin" element={<Admin/>}/>
-       <Route exact path="/Addp" element={<Addp/>}/>
-       <Route exact path="/Addco" element={<Addco/>}/>
-       <Route exact path="/Addsc" element={<Addsc/>}/>
+       <Route exact path="/AddClub" element={<AddClub/>}/>
+       <Route exact path="/AddCOE" element={<AddCOE/>}/>
+       <Route exact path="/AddSchool" element={<AddSchool/>}/>
        <Route exact path="/COE" element={<COE/>}/>
-       <Route path="/COEp" element={<COEp/>}/>
+       <Route path="/COEpage" element={<COEpage/>}/>
        <Route exact path="/Calender" element={<Calendar/>}/>
+       <Route exact path="/COEList" element={<COEList/>}/>
        <Route exact path="/Login" element={<Login/>}/>
        <Route exact path="/DeleteSchool" element={<DeleteSchool/>}/>
        <Route exact path="/DeleteClub" element={<DeleteClub/>}/>
@@ -62,7 +65,8 @@ function App() {
        <Route exact path="/EditClub" element={<EditClub/>}/>
        <Route exact path="/EditCOE" element={<EditCOE/>}/>
        <Route exact path="/Gallery" element={<Gallery/>}/>
-       <Route path="/clubs/:id" element={<Tech/>}>
+       
+       <Route path="/ClubPage" element={<ClubPage/>}>
        
         </Route>
       </Routes>

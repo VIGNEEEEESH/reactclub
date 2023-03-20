@@ -13,7 +13,7 @@ import TwentyFour from "../components/club_logos/twentyFour.jpeg"
 import "../Css files/Uclub.css"
 import {useNavigate, Link} from "react-router-dom"
 
-class COEintro extends React.Component{
+class COEList extends React.Component{
     render(){
         return(
             <div className="Uclub">
@@ -137,4 +137,4 @@ class COEintro extends React.Component{
     );
     }
 }
-export default COEintro
+export default COEList

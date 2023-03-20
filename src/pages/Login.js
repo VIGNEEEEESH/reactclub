@@ -38,6 +38,7 @@ function Login() {
     )
     
     const resJSON = await response.json();
+    console.log(resJSON)
   }
   
    function myFunction(){

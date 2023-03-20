@@ -1,4 +1,4 @@
-import Link from 'antd/es/typography/Link'
+
 import React from 'react'
 import {  useNavigate } from 'react-router-dom'
 import COE from "../components/images/COEorg3.png"
@@ -9,13 +9,13 @@ import "../Css files/Admin.css"
 export default function Admin() {
   const navigate=useNavigate();
   function NewPage(){
-    navigate("/Addp")
+    navigate("/AddClub")
   }
   function NewCOE(){
-    navigate("/Addco")
+    navigate("/AddCOE")
   }
   function NewSchool(){
-    navigate("/Addsc")
+    navigate("/AddSchool")
   }
   
   function DeleteClub(){

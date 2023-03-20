@@ -171,7 +171,7 @@ class COE extends React.Component{
   </div>
   <div className="card">
   <center>
-    <Link to="/COEintro" >   <img  src={Three}  height="250px" className="staf"/></Link>
+    <Link to="/COEList" >   <img  src={Three}  height="250px" className="staf"/></Link>
     </center>
    
   </div>

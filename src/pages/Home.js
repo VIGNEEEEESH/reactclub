@@ -1,4 +1,5 @@
 import React from "react";
+
 import {useNavigate, Link} from "react-router-dom"
 import "../Css files/Home.css"
 import imgOne from "../components/images/COE (5).png"
@@ -9,7 +10,9 @@ import videoOne from "../components/carousel videos/videoplayback (4).mp4"
 import videoTwo from "../components/carousel videos/videoplayback (1).mp4"
 import videoThree from "../components/carousel videos/videoplayback (3).mp4"
 
+
 import "bootstrap/dist/css/bootstrap.css";
+
 
 
 class Home extends React.Component{
@@ -57,7 +60,7 @@ class Home extends React.Component{
     <div className="row row-cols-1 row-cols-md-3 g-4">
       <div className="col">
         <div className="card">
-         <Link to='/SC'> <img src={imgOne} className="card-img-top"  width="5px" alt="..."/></Link>
+         <Link to='/StudentCouncilpage'> <img src={imgOne} className="card-img-top"  width="5px" alt="..."/></Link>
           
         </div>
       </div>

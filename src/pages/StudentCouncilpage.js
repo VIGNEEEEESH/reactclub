@@ -32,7 +32,7 @@ import StudentCouncilIMG from "../components/images/studentCouncil.png"
 import { CardGroup } from "react-bootstrap";
 
 
-class SC extends React.Component{
+class StudentCouncilpage extends React.Component{
     render(){
         return(
 
@@ -190,7 +190,7 @@ class SC extends React.Component{
   </div>
   <div className="card">
   <center>
-    <Link to="/ClubDiv" >   <img  src={StudentCouncilIMG}  height="250px" className="staf"/></Link>
+    <Link to="/ClubsDivision" >   <img  src={StudentCouncilIMG}  height="250px" className="staf"/></Link>
     </center>
    
   </div>
@@ -333,4 +333,4 @@ class SC extends React.Component{
         );
     }
 }
-export default SC
+export default StudentCouncilpage

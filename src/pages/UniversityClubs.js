@@ -13,7 +13,7 @@ import TwentyFour from "../components/club_logos/twentyFour.jpeg"
 import "../Css files/Uclub.css"
 import {useNavigate, Link} from "react-router-dom"
 
-class Uclub extends React.Component{
+class UniversityClubs extends React.Component{
     render(){
         return(
             <div className="Uclub">
@@ -137,4 +137,4 @@ class Uclub extends React.Component{
     );
     }
 }
-export default Uclub
+export default UniversityClubs
