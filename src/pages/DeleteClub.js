@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import "../Css files/Addsc.css";
+import "../Css files/AddSchool.css";
 
 import url from '../Baseurl'
 import { notification } from 'antd';

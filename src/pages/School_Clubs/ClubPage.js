@@ -3,7 +3,7 @@ import logo from "../../components/club_logos/twelve.png"
 import { Dropdown } from "react-bootstrap"
 import Card from 'react-bootstrap/Card';
 import CardGroup from 'react-bootstrap/CardGroup';
-import "../../Css files/Tech.css"
+import "../../Css files/ClubPage.css"
 import P from "../../components/images/PTechnology.jpg"
 import VP from "../../components/images/VTechnology.jpg"
 import { useParams } from "react-router-dom";

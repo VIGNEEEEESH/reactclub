@@ -28,6 +28,7 @@ import EditCOE from './pages/EditCOE';
 import Gallery from './pages/Gallery';
 import COEList from './pages/COEList';
 import COEpage from './pages/COEpage';
+import SpecificClubList from './pages/SpecificClubList';
 
 
 
@@ -65,6 +66,7 @@ function App() {
        <Route exact path="/EditClub" element={<EditClub/>}/>
        <Route exact path="/EditCOE" element={<EditCOE/>}/>
        <Route exact path="/Gallery" element={<Gallery/>}/>
+       <Route exact path="/SpecificClubList" element={<SpecificClubList/>}/>
        <Route path="/ClubPage" element={<ClubPage/>}>
        
         </Route>

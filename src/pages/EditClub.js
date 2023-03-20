@@ -1,7 +1,7 @@
 import React, {  useState } from 'react'
 import axios from 'axios';
 import url from '../Baseurl'
-import "../Css files/Addp.css"
+import "../Css files/AddClub.css"
 import { notification } from 'antd';
 
 function EditClub() {

@@ -1,7 +1,7 @@
 import React, { Component, useState } from 'react'
 import axios from 'axios';
 import url from '../Baseurl'
-import "../Css files/Addp.css"
+import "../Css files/AddClub.css"
 import { notification } from 'antd';
 
 function AddClub() {
@@ -190,7 +190,7 @@ function AddClub() {
             <input onChange={handleClubUniversityChange} type="radio" name="school" value="School Level" required/>&nbsp;
             <label>School Level</label><br/>
             <select onChange={handleClubSchoolsChange} hidden={ss} required>
-            <option value = {0}>Select a club</option>
+            <option value = {0} >Select a club</option>
               { schoolsList.map((entry) => 
                 <option value={entry.schoolId}>{entry.schoolName}</option>
               )} 

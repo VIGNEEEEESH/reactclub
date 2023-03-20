@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CardGroup from 'react-bootstrap/CardGroup';
 import Card from 'react-bootstrap/Card';
 import AAD from '../components/images/COEorg3.png';
-import '../Css files/COEp.css';
+import '../Css files/COEpage.css';
 import { useParams } from 'react-router-dom';
 
 const COEpage = () => {

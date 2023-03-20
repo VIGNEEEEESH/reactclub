@@ -10,7 +10,7 @@ import Fifteen from "../components/club_logos/fifteen.png"
 import Sixteen from "../components/club_logos/sixteen.png"
 import TwentyOne from "../components/club_logos/twentyOne.png"
 import TwentyFour from "../components/club_logos/twentyFour.jpeg"
-import "../Css files/Uclub.css"
+import "../Css files/UniversityClubs.css"
 import {useNavigate, Link} from "react-router-dom"
 
 class COEList extends React.Component{

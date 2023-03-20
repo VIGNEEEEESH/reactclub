@@ -16,7 +16,7 @@ import Eighteen from "../components/club_logos/eighteen.png"
 import Eight from "../components/club_logos/eight.png"
 import Fourteen from "../components/club_logos/fourteen.png"
 import Nineteen from "../components/club_logos/nineteen.png"
-import "../Css files/Sclub.css"
+import "../Css files/SchoolClubs.css"
 import { Dropdown } from "react-bootstrap";
 import { Card, Select,Space } from "antd";
 import url from '../Baseurl'
@@ -29,8 +29,8 @@ function SchoolClubs() {
   const [schoolsList, setSchoolsList] = useState([])
   const [clubsObject, setClubsObject] = useState({})
   const navigate = useNavigate();
-function tech(){
-  navigate("/ClubPage")
+function ListPage(){
+  navigate("/SpecificClubList")
 }
   useEffect(() => {
 
@@ -77,10 +77,9 @@ function tech(){
                 
             { schoolsList.map((entry) => 
             <div className = "card-class">
-                 <Dropdown className="d-inline mx-2 toggle">
-                 <Dropdown.Toggle  variant="dark">
+                
                
-             <Card   style={{ height:"150px",fontFamily: 'League Spartan'}}>
+             <Card id="card" onClick={ListPage} style={{ height:"150px",fontFamily: 'League Spartan'}}>
               <h1>{entry.schoolName}</h1>
                
                <img id="dropdown" src={dropdown} height="47px" />
@@ -88,9 +87,7 @@ function tech(){
            
            
          
-                 </Dropdown.Toggle>
-         
-                 <Dropdown.Menu>
+                 
 
               {/* {
                 clubsObject[entry.schoolId].map((entry) => {
@@ -99,9 +96,8 @@ function tech(){
                 })
               } */}
 
-                   <Dropdown.Item > <img src={Twelve} onClick={tech} height="300px"/><center><h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Technology Club</h4></center></Dropdown.Item>
-                 </Dropdown.Menu>
-               </Dropdown>
+                   
+              
                </div>
               )} 
 

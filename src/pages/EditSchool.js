@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../Css files/Addsc.css";
+import "../Css files/AddSchool.css";
 import un from "../components/images/user.png"
 import pw from "../components/images/pw.png"
 import bg from "../components/images/light rays.png"

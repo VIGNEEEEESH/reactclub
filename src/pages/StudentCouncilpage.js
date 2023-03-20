@@ -2,7 +2,7 @@ import React from "react"
 import "@fontsource/league-spartan";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import "../Css files/SC.css"
+import "../Css files/StudentCouncilPage.css"
 import One from "../components/club_logos/one.png"
 import Two from "../components/club_logos/two.png"
 import Three from "../components/club_logos/three.png"
