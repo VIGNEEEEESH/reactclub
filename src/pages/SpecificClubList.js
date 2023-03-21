@@ -28,7 +28,7 @@ const SpecificClubList = () => {
           {clubsList.map((club) => (
             <div className="col">
               <div className="card">
-                <Link to="/Ignite">
+                <Link to={"/ClubPage/" + club.clubId}>
                   {" "}
                   <img
                     src={url + `api/club/${club.clubId}/image/logo`}
@@ -51,7 +51,6 @@ const SpecificClubList = () => {
               </div>
             </div>
           ))}
-      
         </div>
       </div>
     </div>
