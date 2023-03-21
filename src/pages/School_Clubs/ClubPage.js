@@ -47,6 +47,7 @@ function ClubPage(props) {
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [image, setImage] = useState("");
+  const [time, setTime] = useState("");
 
   const handleAddEvent = (e) => {
     e.preventDefault();
@@ -55,12 +56,14 @@ function ClubPage(props) {
       date: date,
       description: description,
       image:image,
+      time:time,
     };
     setEvents([...events, newEvent]);
     setTitle("");
     setDate("");
     setDescription("");
     setImage("");
+    setTime("");
   };
 
   const handleDeleteEvent = (eventIndex) => {
@@ -149,13 +152,15 @@ function ClubPage(props) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-             <input type="file" onChange={(e) => setImage(e.target.value)}></input>
+            
+             <input type="file" onChange={(e) => setImage(e.target.value)} accept="image/png, image/jpeg,.jpg"></input>
             <input
               type="date"
               placeholder="Event Date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
+            <input type="time" onChange={(e) => setTime(e.target.value)}/>
             <textarea
               placeholder="Event Description"
               value={description}
@@ -195,6 +200,14 @@ function ClubPage(props) {
                 }}
               >
                 {event.date}
+              </p>
+              <p
+                style={{
+                  fontFamily: "CourierNewPS-ItalicMT",
+                  fontWeight: "bold",
+                }}
+              >
+                {event.time}
               </p>
               <textarea
                 style={{
