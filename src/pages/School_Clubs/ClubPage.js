@@ -46,6 +46,7 @@ function ClubPage(props) {
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
+  const [image, setImage] = useState("");
 
   const handleAddEvent = (e) => {
     e.preventDefault();
@@ -53,11 +54,13 @@ function ClubPage(props) {
       title: title,
       date: date,
       description: description,
+      image:image,
     };
     setEvents([...events, newEvent]);
     setTitle("");
     setDate("");
     setDescription("");
+    setImage("");
   };
 
   const handleDeleteEvent = (eventIndex) => {
@@ -135,7 +138,7 @@ function ClubPage(props) {
       <div className="calendar">
         <div className="calendar-header">
           <h2
-            style={{ fontFamily: "CourierNewPS-ItalicMT", fontWeight: "bold" }}
+            style={{ fontFamily: "CourierNewPS-ItalicMT", fontWeight: "bold",padding:"10px" }}
           >
             Event Calendar
           </h2>
@@ -146,6 +149,7 @@ function ClubPage(props) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
+             <input type="file" onChange={(e) => setImage(e.target.value)}></input>
             <input
               type="date"
               placeholder="Event Date"
@@ -156,7 +160,11 @@ function ClubPage(props) {
               placeholder="Event Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
+            ></textarea><br/>
+          
+          
+          
+
             <button type="submit">Add Event</button>
           </form>
         </div>
@@ -179,6 +187,7 @@ function ClubPage(props) {
               >
                 {event.title}
               </h4>
+               <img src={event.image} />
               <p
                 style={{
                   fontFamily: "CourierNewPS-ItalicMT",
@@ -196,6 +205,7 @@ function ClubPage(props) {
                 }}
                 value={event.description}
               ></textarea>
+              
               <br />
               <button onClick={() => handleDeleteEvent(index)}>Delete</button>
               <br />
