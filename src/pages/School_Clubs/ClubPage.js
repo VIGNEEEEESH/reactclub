@@ -8,8 +8,10 @@ import P from "../../components/images/PTechnology.jpg";
 import VP from "../../components/images/VTechnology.jpg";
 import { useParams } from "react-router-dom";
 import url from "../../Baseurl";
+import { notification } from "antd";
 function ClubPage(props) {
   const [boxCount, setBoxCount] = useState(0);
+  const [file, setFile] = useState();
 
   const addBox = () => {
     setBoxCount(boxCount + 1);
@@ -22,6 +24,7 @@ function ClubPage(props) {
   };
   const onsubmit = async (event) => {
     event.preventDefault();
+    
 
     const response = await fetch(url + "/api/club/{clubId}", {
       method: "GET",
@@ -55,19 +58,45 @@ function ClubPage(props) {
       title: title,
       date: date,
       description: description,
-      image:image,
+      image:file,
       time:time,
+      
     };
+    
     setEvents([...events, newEvent]);
     setTitle("");
     setDate("");
     setDescription("");
-    setImage("");
+    setFile("");
     setTime("");
+    
   };
+  
 
   const handleDeleteEvent = (eventIndex) => {
     setEvents(events.filter((event, index) => index !== eventIndex));
+  };
+
+  const uploadFile = (e) => {
+    setFile(e.target.files[0]);
+    const target = e.target
+  	if (target.files && target.files[0]) {
+
+      /*Maximum allowed size in bytes
+        5MB Example
+        Change first operand(multiplier) for your needs*/
+      const maxAllowedSize = 10 * 1024 * 1024;
+      if (target.files[0].size > maxAllowedSize) {
+      	
+       	target.value = ''
+         notification.error({
+          message: `The file size is be less than 10MB`,
+          
+          placement:'top'
+        })
+      }
+  }
+  
   };
 
   return (
@@ -153,7 +182,7 @@ function ClubPage(props) {
               onChange={(e) => setTitle(e.target.value)}
             />
             
-             <input type="file" onChange={(e) => setImage(e.target.value)} accept="image/png, image/jpeg,.jpg"></input>
+             <input type="file" onChange={uploadFile} accept="image/png, image/jpeg,.jpg"></input>
             <input
               type="date"
               placeholder="Event Date"
@@ -209,6 +238,7 @@ function ClubPage(props) {
               >
                 {event.time}
               </p>
+              
               <textarea
                 style={{
                   fontFamily: "CourierNewPS-ItalicMT",
