@@ -51,26 +51,7 @@ const SpecificClubList = () => {
               </div>
             </div>
           ))}
-          <div className="col">
-            <div className="card">
-              <Link to="/Ignite">
-                {" "}
-                <img src={One} className="card-img-top" alt="..." />{" "}
-              </Link>
-              <div className="card-body">
-                <center>
-                  <h4
-                    style={{
-                      fontFamily: "CourierNewPS-ItalicMT",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    Ignite Club
-                  </h4>
-                </center>
-              </div>
-            </div>
-          </div>
+      
         </div>
       </div>
     </div>

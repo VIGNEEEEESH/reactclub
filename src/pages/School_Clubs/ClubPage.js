@@ -146,7 +146,7 @@ function ClubPage(props){
             value={date}
             onChange={(e) => setDate(e.target.value)}
           />
-          <textarea
+          <textarea id="description"
             placeholder="Event Description"
             value={description}
             
