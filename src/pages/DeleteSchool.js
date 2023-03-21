@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import "../Css files/AddSchool.css";
+import "../Css files/DeleteSchool.css";
 
 import url from '../Baseurl'
 import { notification } from 'antd';
@@ -50,7 +50,7 @@ function DeleteSchool() {
         
        
     return (
-      <div className="Addsc ">
+      <div className="DeleteSchool ">
       <center>
       <div className="form" onSubmit={onsubmit}>
           <div className="loginImage">

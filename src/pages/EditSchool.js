@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../Css files/AddSchool.css";
+import "../Css files/EditSchool.css";
 import un from "../components/images/user.png"
 import pw from "../components/images/pw.png"
 import bg from "../components/images/light rays.png"
@@ -53,7 +53,7 @@ function EditSchool() {
   }
 
     return (
-      <div className="Addsc ">
+      <div className="EditSchool ">
         
       <center>
       <div className="form" onSubmit={onsubmit}>

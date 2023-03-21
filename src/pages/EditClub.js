@@ -1,7 +1,7 @@
 import React, {  useState } from 'react'
 import axios from 'axios';
 import url from '../Baseurl'
-import "../Css files/AddClub.css"
+import "../Css files/EditClub.css"
 import { notification } from 'antd';
 
 function EditClub() {
@@ -159,7 +159,7 @@ function EditClub() {
 
 
     return (
-      <div className="Addp">
+      <div className="EditClub">
         <center>
       <div className="rectangle">
         <form onSubmit={onsubmit}>

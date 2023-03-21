@@ -159,7 +159,7 @@ function AddClub() {
 
 
     return (
-      <div className="Addp">
+      <div className="AddClub">
         <center>
       <div className="rectangle">
         <form onSubmit={onsubmit}>

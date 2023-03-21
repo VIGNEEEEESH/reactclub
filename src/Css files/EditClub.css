@@ -1,9 +1,9 @@
-.AddClub{
+.EditClub{
     text-align: center;
     
 }
 
-.AddClub .rectangle {
+.EditClub .rectangle {
     background-color: white;
     height:650px;
     width: 500px;

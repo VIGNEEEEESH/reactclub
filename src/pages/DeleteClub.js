@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import "../Css files/AddSchool.css";
+import "../Css files/DeleteClub.css";
 
 import url from '../Baseurl'
 import { notification } from 'antd';
@@ -51,7 +51,7 @@ function DeleteClub() {
         
        
     return (
-      <div className="Addsc ">
+      <div className="DeleteClub ">
       <center>
       <div className="form" onSubmit={onsubmit}>
           <div className="loginImage">

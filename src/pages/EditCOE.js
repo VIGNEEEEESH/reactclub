@@ -1,5 +1,5 @@
 import React, {  useState } from 'react'
-import "../Css files/AddCOE.css"
+import "../Css files/EditCOE.css"
 import url from '../Baseurl'
 import axios from 'axios';
 import { notification } from 'antd';
@@ -111,7 +111,7 @@ function EditCOE() {
   };
   
     return (
-      <div className="Addco">
+      <div className="EditCOE">
         <center>
       <div className="rectangle">
         <form onSubmit={onsubmit}>
