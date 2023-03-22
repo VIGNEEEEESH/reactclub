@@ -26,7 +26,7 @@ function COEpage() {
     };
 
     const getCoeEvents = async () => {
-      const resposne = await fetch(url + `/api/coe-post/coe/${id}`);
+      const resposne = await fetch(url + `api/coe-post/coe/${id}`);
       const resJSON = await resposne.json();
       console.log(resJSON);
       setCoeEvents(resJSON);
@@ -51,27 +51,31 @@ function COEpage() {
     const newEvent = {
       title: title,
       date: date + " " + time + ":00",
-      eventDesc: description,
+      desc: description,
       id: id,
     };
     console.log(newEvent);
 
     const response = await fetch(url + `api/coe-post/${id}/`, {
-      body: JSON.stringify({ ...newEvent }),
+      body: JSON.stringify({
+        title: newEvent.title,
+        date: newEvent.date,
+        desc: newEvent.desc,
+      }),
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
     });
     const resJSON = await response.json();
-    const eventId = resJSON.id;
+    const coePostId = resJSON.coePostId;
 
     const theFormWithImage = new FormData();
     theFormWithImage.append("image", file);
     var imgSuccess;
     if (!!file) {
       const imgResponse = await fetch(
-        url + `/api/coe-post/${id}/image/${id}`,
+        url + `api/coe-post/${id}/image/${coePostId}`,
         {
           method: "PUT",
           body: theFormWithImage,
@@ -81,7 +85,7 @@ function COEpage() {
       if (imgResponseJSON.success === "true") {
         imgSuccess = true;
       }
-      if ((!!eventId && !file) || (!!eventId && !!imgSuccess)) {
+      if ((!!coePostId && !file) || (!!coePostId && !!imgSuccess)) {
         notification.success({
           message: "Event added successfully",
           description: `${newEvent.title} was added to the club's calendar. Please reload the page to see changes.`,
@@ -98,7 +102,7 @@ function COEpage() {
   };
 
   const handleDeleteEvent = async (eventIndex) => {
-    const response = await fetch(url + `/api/coe-post/${id}`, {
+    const response = await fetch(url + `api/coe-post/${eventIndex}`, {
       method: "DELETE",
     });
     const resJSON = await response.json();
@@ -135,9 +139,9 @@ function COEpage() {
 
   return (
     <div className="AAD">
-      <CardGroup style={{border: "none"}}>
+      <CardGroup style={{ border: "none" }}>
         <div className="One">
-          <Card className="cardGroup" style={{border: "none"}}>
+          <Card className="cardGroup" style={{ border: "none" }}>
             <img
               variant="top"
               src={url + `api/coe/${id}/image/logo`}
@@ -146,7 +150,7 @@ function COEpage() {
             />
           </Card>
         </div>
-        <Card className="cardGroup" style={{border: "none"}}>
+        <Card className="cardGroup" style={{ border: "none" }}>
           <Card.Body>
             <div className="misso">
               <Card className="mission">
@@ -172,16 +176,22 @@ function COEpage() {
       <br />
 
       <div className="chairpersons">
-<br/><br/>
-<div className="cards-list">
-<div className="card1">
-  <div className="card_title title-white">
-  <p id="co">Co-Chairpersons</p> </div>
-  <div className="card_body"> <center><p style={{fontSize:"23px"}}>  {coeInfo.coFounderName}</p></center></div>
- 
-</div>
-</div>
-</div>
+        <br />
+        <br />
+        <div className="cards-list">
+          <div className="card1">
+            <div className="card_title title-white">
+              <p id="co">Co-Chairpersons</p>{" "}
+            </div>
+            <div className="card_body">
+              {" "}
+              <center>
+                <p style={{ fontSize: "23px" }}> {coeInfo.coFounderName}</p>
+              </center>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div className="calendar">
         <div className="calendar-header">
@@ -206,11 +216,8 @@ function COEpage() {
               type="file"
               onChange={uploadFile}
               accept="image/png, image/jpeg,.jpg"
-              style={{width:"245px"}}
+              style={{ width: "245px" }}
             ></input>
-
-            
-           
 
             <input
               type="date"
@@ -221,7 +228,8 @@ function COEpage() {
             <input type="time" onChange={(e) => setTime(e.target.value)} />
             <textarea
               placeholder="Event Description"
-              value={description} style={{width:"150px"}}
+              value={description}
+              style={{ width: "150px" }}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
             <br />
@@ -249,7 +257,7 @@ function COEpage() {
                 {event.title}
               </h4>
               <img
-                src={url + `/api/coe-post/${id}/image/${id}`}
+                src={url + `api/coe-post/${id}/image/${event.id}`}
                 style={{ maxWidth: "650px" }}
               />
               <p
@@ -268,11 +276,11 @@ function COEpage() {
                   width: "720px",
                   height: "100px",
                 }}
-                value={event.eventDesc}
+                value={event.desc}
               ></textarea>
 
               <br />
-              <button onClick={() => handleDeleteEvent(event.eventId)}>
+              <button onClick={() => handleDeleteEvent(event.id)}>
                 Delete
               </button>
               <br />
