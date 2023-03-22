@@ -17,3 +17,16 @@ if(!!resJSON.clubId){
       placement:'topRight'
     })
   }
+
+
+  <div className="chairpersons">
+<br/><br/>
+<div className="cards-list">
+<div className="card1">
+  <div className="card_title title-white">
+  <p id="co">Co-Chairpersons</p> </div>
+  <div className="card_body"> <p>  </p></div>
+ 
+</div>
+</div>
+</div>

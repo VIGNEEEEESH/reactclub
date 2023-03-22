@@ -50,7 +50,7 @@ function App() {
           <Route exact path="/AddCOE" element={<AddCOE />} />
           <Route exact path="/AddSchool" element={<AddSchool />} />
           <Route exact path="/COE" element={<COE />} />
-          <Route path="/COEpage" element={<COEpage />} />
+          <Route path="/COEpage/:id" element={<COEpage />} />
           <Route exact path="/Calender" element={<Calendar />} />
           <Route exact path="/COEList" element={<COEList />} />
           <Route exact path="/Login" element={<Login />} />

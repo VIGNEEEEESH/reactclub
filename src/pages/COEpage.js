@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import CardGroup from 'react-bootstrap/CardGroup';
-import Card from 'react-bootstrap/Card';
-import AAD from '../components/images/COEorg3.png';
-import '../Css files/COEpage.css';
-import { useParams } from 'react-router-dom';
-
-const COEpage = () => {
-    const [boxCount, setBoxCount] = useState(0);
+import React, { useEffect, useState } from "react";
+import Card from "react-bootstrap/Card";
+import CardGroup from "react-bootstrap/CardGroup";
+import "../Css files/COEpage.css";
+import { useParams } from "react-router-dom";
+import url from "../Baseurl";
+import { notification } from "antd";
+function COEpage() {
+  const [boxCount, setBoxCount] = useState(0);
 
   const addBox = () => {
     setBoxCount(boxCount + 1);
@@ -17,137 +17,304 @@ const COEpage = () => {
       setBoxCount(boxCount - 1);
     }
   };
-  const {id}=useParams()
+  const { id } = useParams();
   useEffect(() => {
-    console.log(id)
-  
-  }, [])
-  const [events, setEvents] = useState([]);
+    const getCoeFromDB = async () => {
+      const response = await fetch(url + `api/coe/${id}`);
+      const resJSON = await response.json();
+      setCoeInfo(resJSON);
+    };
+
+    const getCoeEvents = async () => {
+      const resposne = await fetch(url + `/api/coe-post/coe/${id}`);
+      const resJSON = await resposne.json();
+      console.log(resJSON);
+      setCoeEvents(resJSON);
+    };
+
+    getCoeFromDB();
+    getCoeEvents();
+  }, []);
+  const [file, setFile] = useState();
+  const [coeInfo, setCoeInfo] = useState({});
+  const [events, setCoeEvents] = useState([]);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
+  const [time, setTime] = useState("");
 
-  const handleAddEvent = (e) => {
+  const handleAddEvent = async (e) => {
     e.preventDefault();
+    if (time === "") {
+      time = "00:00";
+    }
     const newEvent = {
       title: title,
-      date: date,
-      description: description,
+      date: date + " " + time + ":00",
+      eventDesc: description,
+      id: id,
     };
-    setEvents([...events, newEvent]);
+    console.log(newEvent);
+
+    const response = await fetch(url + `api/coe-post/${id}/`, {
+      body: JSON.stringify({ ...newEvent }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const resJSON = await response.json();
+    const eventId = resJSON.id;
+
+    const theFormWithImage = new FormData();
+    theFormWithImage.append("image", file);
+    var imgSuccess;
+    if (!!file) {
+      const imgResponse = await fetch(
+        url + `/api/coe-post/${id}/image/${id}`,
+        {
+          method: "PUT",
+          body: theFormWithImage,
+        }
+      );
+      const imgResponseJSON = await imgResponse.json();
+      if (imgResponseJSON.success === "true") {
+        imgSuccess = true;
+      }
+      if ((!!eventId && !file) || (!!eventId && !!imgSuccess)) {
+        notification.success({
+          message: "Event added successfully",
+          description: `${newEvent.title} was added to the club's calendar. Please reload the page to see changes.`,
+          placement: "bottomRight",
+        });
+      }
+    }
+
     setTitle("");
     setDate("");
     setDescription("");
+    setFile("");
+    setTime("");
   };
 
-  const handleDeleteEvent = (eventIndex) => {
-    setEvents(events.filter((event, index) => index !== eventIndex));
+  const handleDeleteEvent = async (eventIndex) => {
+    const response = await fetch(url + `/api/coe-post/${id}`, {
+      method: "DELETE",
+    });
+    const resJSON = await response.json();
+    if (resJSON.success === "true") {
+      notification.success({
+        message: "Event deleted successfully",
+        description: "Reload to see the changes",
+        placement: "top",
+      });
+    } else {
+      notification.error({
+        message: "Something went wrong",
+        description: "The even was not deleted",
+        placement: "top",
+      });
+    }
   };
 
+  const uploadFile = (e) => {
+    setFile(e.target.files[0]);
+    const target = e.target;
+    if (target.files && target.files[0]) {
+      const maxAllowedSize = 10 * 1024 * 1024;
+      if (target.files[0].size > maxAllowedSize) {
+        target.value = "";
+        notification.error({
+          message: `The file size is be less than 10MB`,
 
+          placement: "top",
+        });
+      }
+    }
+  };
 
-    return(
+  return (
     <div className="AAD">
-    <CardGroup >
+      <CardGroup style={{border: "none"}}>
         <div className="One">
-<Card className="cardGroup" style={{ border: "none", boxShadow: "none" }}>
+          <Card className="cardGroup" style={{border: "none"}}>
+            <img
+              variant="top"
+              src={url + `api/coe/${id}/image/logo`}
+              id="Twelve"
+              width="70%"
+            />
+          </Card>
+        </div>
+        <Card className="cardGroup" style={{border: "none"}}>
+          <Card.Body>
+            <div className="misso">
+              <Card className="mission">
+                <Card.Body>
+                  <Card.Title>
+                    <b>Mission</b>
+                  </Card.Title>
+                  <p>{coeInfo.mission}</p>
+                </Card.Body>
+              </Card>
+            </div>
+            <Card className="vision">
+              <Card.Body>
+                <Card.Title>
+                  <b>Vision</b>
+                </Card.Title>
+                <p>{coeInfo.vision}</p>
+              </Card.Body>
+            </Card>
+          </Card.Body>
+        </Card>
+      </CardGroup>
+      <br />
 
-<img variant="top" src={AAD} alt="COE logo" id="Twelve" width="70%"/>
-
-</Card>
-</div>
-<Card className="cardGroup" style={{ border: "none", boxShadow: "none" }}>
-
-<Card.Body >
-<div className="misso">
-<Card className="mission">
-<Card.Body >
- <Card.Title><b>Mission</b></Card.Title>
-
- 
-</Card.Body>
-</Card>
-</div>
-<Card className="vision">
-<Card.Body >
- <Card.Title><b>Vision</b></Card.Title>
-
- 
-</Card.Body>
-</Card>
-</Card.Body >
-</Card>
-</CardGroup>
-<br/>
-
-
-<div className="chairpersons">
+      <div className="chairpersons">
 <br/><br/>
 <div className="cards-list">
 <div className="card1">
   <div className="card_title title-white">
   <p id="co">Co-Chairpersons</p> </div>
-  <div className="card_body"> <p>  </p></div>
+  <div className="card_body"> <center><p style={{fontSize:"23px"}}>  {coeInfo.coFounderName}</p></center></div>
  
 </div>
 </div>
 </div>
-<div className="calendar">
-      <div className="calendar-header">
-        <h2 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Event Calendar</h2>
-        <form onSubmit={handleAddEvent}>
-          <input
-            type="text"
-            placeholder="Event Title"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-          <input
-            type="date"
-            placeholder="Event Date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-          />
-          <textarea
-            placeholder="Event Description"
-            value={description}
+
+      <div className="calendar">
+        <div className="calendar-header">
+          <h2
+            style={{
+              fontFamily: "CourierNewPS-ItalicMT",
+              fontWeight: "bold",
+              padding: "10px",
+            }}
+          >
+            Event Calendar
+          </h2>
+          <form onSubmit={handleAddEvent}>
+            <input
+              type="text"
+              placeholder="Event Title"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+            />
+
+            <input
+              type="file"
+              onChange={uploadFile}
+              accept="image/png, image/jpeg,.jpg"
+              style={{width:"245px"}}
+            ></input>
+
             
-            onChange={(e) => setDescription(e.target.value)}
-          ></textarea>
-          <button type="submit" >Add Event</button>
-        </form>
-      </div><br/>
-      <div className="calendar-body">
-        {events.map((event, index) => (
-          <div key={index} className="event" style={{boxShadow: "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px"}}>
-            <h4 style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>{event.title}</h4>
-            <p style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>{event.date}</p>
-            <textarea style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold",width:"720px", height:"100px"}} value={event.description} ></textarea><br/>
-            <button onClick={() => handleDeleteEvent(index)}>Delete</button><br/><br/>
+           
+
+            <input
+              type="date"
+              placeholder="Event Date"
+              value={date}
+              onChange={(e) => setDate(e.target.value)}
+            />
+            <input type="time" onChange={(e) => setTime(e.target.value)} />
+            <textarea
+              placeholder="Event Description"
+              value={description} style={{width:"150px"}}
+              onChange={(e) => setDescription(e.target.value)}
+            ></textarea>
+            <br />
+
+            <button type="submit">Add Event</button>
+          </form>
+        </div>
+        <br />
+        <div className="calendar-body">
+          {events.map((event, index) => (
+            <div
+              key={index}
+              className="event"
+              style={{
+                boxShadow:
+                  "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
+              }}
+            >
+              <h4
+                style={{
+                  fontFamily: "CourierNewPS-ItalicMT",
+                  fontWeight: "bold",
+                }}
+              >
+                {event.title}
+              </h4>
+              <img
+                src={url + `/api/coe-post/${id}/image/${id}`}
+                style={{ maxWidth: "650px" }}
+              />
+              <p
+                style={{
+                  fontFamily: "CourierNewPS-ItalicMT",
+                  fontWeight: "bold",
+                }}
+              >
+                {event.date}
+              </p>
+
+              <textarea
+                style={{
+                  fontFamily: "CourierNewPS-ItalicMT",
+                  fontWeight: "bold",
+                  width: "720px",
+                  height: "100px",
+                }}
+                value={event.eventDesc}
+              ></textarea>
+
+              <br />
+              <button onClick={() => handleDeleteEvent(event.eventId)}>
+                Delete
+              </button>
+              <br />
+              <br />
             </div>
-          
-        ))}
+          ))}
+        </div>
+      </div>
+
+      <br />
+      <br />
+      <br />
+
+      <div>
+        <center>
+          <p id="pic">
+            <u>
+              <b>PICTURE GALLERY</b>
+            </u>
+          </p>
+        </center>
+        <center>
+          <button type="button" className="btn btn-dark" onClick={addBox}>
+            <b>Add Event</b>
+          </button>
+          &emsp;
+          <button type="button" className="btn btn-dark" onClick={removeBox}>
+            <b>Remove Event</b>
+          </button>
+        </center>
+
+        <div className="container">
+          <div className="box1">
+            <img src="" alt="img" />
+            <span></span>
+          </div>
+          {Array.from({ length: boxCount }).map((_, index) => (
+            <div className="box1" key={index}></div>
+          ))}
+        </div>
       </div>
     </div>
-<br/><br/><br/>
-
-<div>
-<center><p id="pic"><u><b>PICTURE GALLERY</b></u></p></center>
-<center><button type="button" className="btn btn-dark" onClick={addBox}><b>Add Event</b></button>&emsp;
-<button type="button" className="btn btn-dark" onClick={removeBox}><b>Remove Event</b></button></center>
-
-<div className="container">
-        <div className="box1">
-          <img src="" alt="img" />
-          <span></span>
-        </div>
-        {Array.from({ length: boxCount }).map((_, index) => (
-        <div className="box1" key={index}></div>
-      ))}
-        </div>   
-</div>
-</div>
-);
-
+  );
 }
 export default COEpage;

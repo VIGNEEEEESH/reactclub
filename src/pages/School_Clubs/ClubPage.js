@@ -219,17 +219,16 @@ function ClubPage() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-<<<<<<< Updated upstream
 
             <input
               type="file"
               onChange={uploadFile}
               accept="image/png, image/jpeg,.jpg"
             ></input>
-=======
+
             
-             <input type="file" value={image}style={{width:"245px"}} onChange={uploadFile} accept="image/png, image/jpeg,.jpg"></input>
->>>>>>> Stashed changes
+             <input type="file" style={{width:"245px"}} onChange={uploadFile} accept="image/png, image/jpeg,.jpg"></input>
+
             <input
               type="date"
               placeholder="Event Date"
