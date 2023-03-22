@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 import React, { useEffect, useState } from "react";
 import One from "../components/club_logos/one.png";
 import Two from "../components/club_logos/two.png";
@@ -48,16 +49,63 @@ const COEList = () => {
                   {" "}
                   <img
                     src={url + `api/coe/${coe.id}/image/logo`}
+=======
+import React, { useEffect, useState } from "react"
+
+import "../Css files/COEList.css"
+import {useNavigate, Link, useParams} from "react-router-dom"
+import url from "../Baseurl";
+
+const COEList = () => {
+  const [coesList, setCoesList] = useState([]);
+  const params = useParams();
+  useEffect(() => {
+    const getCoesListFromDB = async () => {
+      const response = await fetch(url + `api/school/${params.schoolId}/clubs`);
+      const resJSON = await response.json();
+      setCoesList(resJSON);
+      console.log(resJSON);
+    };
+
+    getCoesListFromDB();
+  }, []);
+
+  return (
+    <div className="SpecificClubList">
+      <div className="container">
+        <div className="row row-cols-1 row-cols-md-4 g-4">
+          {coesList.map((club) => (
+            <div className="col">
+              <div className="card">
+                <Link to={"/ClubPage/" + club.clubId}>
+                  {" "}
+                  <img
+                    src={url + `api/club/${club.clubId}/image/logo`}
+>>>>>>> Stashed changes
                     className="card-img-top"
                     alt="..."
                   />{" "}
                 </Link>
                 <div className="card-body">
+<<<<<<< Updated upstream
                   <h5 className="card-title">{coe.name}</h5>
+=======
+                  <center>
+                    <h4
+                      style={{
+                        fontFamily: "CourierNewPS-ItalicMT",
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {club.clubName}
+                    </h4>
+                  </center>
+>>>>>>> Stashed changes
                 </div>
               </div>
             </div>
           ))}
+<<<<<<< Updated upstream
           <div className="col">
             <div className="card">
               <Link to="./student_initiatives/cultural.html">
@@ -175,6 +223,8 @@ const COEList = () => {
               </div>
             </div>
           </div>
+=======
+>>>>>>> Stashed changes
         </div>
       </div>
     </div>

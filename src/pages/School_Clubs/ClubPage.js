@@ -219,12 +219,17 @@ function ClubPage() {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
+<<<<<<< Updated upstream
 
             <input
               type="file"
               onChange={uploadFile}
               accept="image/png, image/jpeg,.jpg"
             ></input>
+=======
+            
+             <input type="file" value={image}style={{width:"245px"}} onChange={uploadFile} accept="image/png, image/jpeg,.jpg"></input>
+>>>>>>> Stashed changes
             <input
               type="date"
               placeholder="Event Date"
@@ -234,7 +239,7 @@ function ClubPage() {
             <input type="time" onChange={(e) => setTime(e.target.value)} />
             <textarea
               placeholder="Event Description"
-              value={description}
+              value={description} style={{width:"150px"}}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
             <br />

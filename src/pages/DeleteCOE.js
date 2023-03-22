@@ -57,7 +57,7 @@ function DeleteCOE() {
           <div className="loginImage">
             <img src={loginImg} width="300" style={{position: 'relative'}} alt="login"/><br/><br/><br/>
             <form>
-            <h1>Delete Club</h1>   <select onChange={handleCOEChange}  required>
+            <h1>Delete COE</h1>   <select onChange={handleCOEChange}  required>
             <option value = {0}>Select a COE</option>
               { COEsList.map((entry) => 
                 <option value={entry.id}>{entry.name}</option>
