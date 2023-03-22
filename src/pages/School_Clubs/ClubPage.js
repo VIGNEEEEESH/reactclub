@@ -1,17 +1,12 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../components/club_logos/twelve.png";
-import { Dropdown } from "react-bootstrap";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
 import "../../Css files/ClubPage.css";
-import P from "../../components/images/PTechnology.jpg";
-import VP from "../../components/images/VTechnology.jpg";
 import { useParams } from "react-router-dom";
 import url from "../../Baseurl";
 import { notification } from "antd";
-function ClubPage(props) {
+function ClubPage() {
   const [boxCount, setBoxCount] = useState(0);
-  const [file, setFile] = useState();
 
   const addBox = () => {
     setBoxCount(boxCount + 1);
@@ -22,18 +17,6 @@ function ClubPage(props) {
       setBoxCount(boxCount - 1);
     }
   };
-  const onsubmit = async (event) => {
-    event.preventDefault();
-    
-
-    const response = await fetch(url + "/api/club/{clubId}", {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
-  };
-
   const { clubId } = useParams();
   useEffect(() => {
     const getClubFromDB = async () => {
@@ -42,61 +25,112 @@ function ClubPage(props) {
       setClubInfo(resJSON);
     };
 
+    const getClubEvents = async () => {
+      const resposne = await fetch(url + `api/event/club/${clubId}`);
+      const resJSON = await resposne.json();
+      console.log(resJSON);
+      setEvents(resJSON);
+    };
+
     getClubFromDB();
+    getClubEvents();
   }, []);
+  const [file, setFile] = useState();
   const [clubInfo, setClubInfo] = useState({});
   const [events, setEvents] = useState([]);
   const [title, setTitle] = useState("");
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
-  const [image, setImage] = useState("");
   const [time, setTime] = useState("");
 
-  const handleAddEvent = (e) => {
+  const handleAddEvent = async (e) => {
     e.preventDefault();
+    if (time === "") {
+      time = "00:00";
+    }
     const newEvent = {
       title: title,
-      date: date,
-      description: description,
-      image:file,
-      time:time,
-      
+      date: date + " " + time + ":00",
+      eventDesc: description,
+      clubId: clubId,
     };
-    
-    setEvents([...events, newEvent]);
+    console.log(newEvent);
+
+    const response = await fetch(url + "api/event", {
+      body: JSON.stringify({ ...newEvent }),
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    const resJSON = await response.json();
+    const eventId = resJSON.eventId;
+
+    const theFormWithImage = new FormData();
+    theFormWithImage.append("image", file);
+    var imgSuccess;
+    if (!!file) {
+      const imgResponse = await fetch(
+        url + `api/event/image/${clubId}/${eventId}`,
+        {
+          method: "PUT",
+          body: theFormWithImage,
+        }
+      );
+      const imgResponseJSON = await imgResponse.json();
+      if (imgResponseJSON.success === "true") {
+        imgSuccess = true;
+      }
+      if ((!!eventId && !file) || (!!eventId && !!imgSuccess)) {
+        notification.success({
+          message: "Event added successfully",
+          description: `${newEvent.title} was added to the club's calendar. Please reload the page to see changes.`,
+          placement: "bottomRight",
+        });
+      }
+    }
+
     setTitle("");
     setDate("");
     setDescription("");
     setFile("");
     setTime("");
-    
   };
-  
 
-  const handleDeleteEvent = (eventIndex) => {
-    setEvents(events.filter((event, index) => index !== eventIndex));
+  const handleDeleteEvent = async (eventIndex) => {
+    const response = await fetch(url + `api/event/${eventIndex}`, {
+      method: "DELETE",
+    });
+    const resJSON = await response.json();
+    if (resJSON.success === "true") {
+      notification.success({
+        message: "Event deleted successfully",
+        description: "Reload to see the changes",
+        placement: "top",
+      });
+    } else {
+      notification.error({
+        message: "Something went wrong",
+        description: "The even was not deleted",
+        placement: "top",
+      });
+    }
   };
 
   const uploadFile = (e) => {
     setFile(e.target.files[0]);
-    const target = e.target
-  	if (target.files && target.files[0]) {
-
-      /*Maximum allowed size in bytes
-        5MB Example
-        Change first operand(multiplier) for your needs*/
+    const target = e.target;
+    if (target.files && target.files[0]) {
       const maxAllowedSize = 10 * 1024 * 1024;
       if (target.files[0].size > maxAllowedSize) {
-      	
-       	target.value = ''
-         notification.error({
+        target.value = "";
+        notification.error({
           message: `The file size is be less than 10MB`,
-          
-          placement:'top'
-        })
+
+          placement: "top",
+        });
       }
-  }
-  
+    }
   };
 
   return (
@@ -170,7 +204,11 @@ function ClubPage(props) {
       <div className="calendar">
         <div className="calendar-header">
           <h2
-            style={{ fontFamily: "CourierNewPS-ItalicMT", fontWeight: "bold",padding:"10px" }}
+            style={{
+              fontFamily: "CourierNewPS-ItalicMT",
+              fontWeight: "bold",
+              padding: "10px",
+            }}
           >
             Event Calendar
           </h2>
@@ -181,23 +219,25 @@ function ClubPage(props) {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
             />
-            
-             <input type="file" onChange={uploadFile} accept="image/png, image/jpeg,.jpg"></input>
+
+            <input
+              type="file"
+              onChange={uploadFile}
+              accept="image/png, image/jpeg,.jpg"
+            ></input>
             <input
               type="date"
               placeholder="Event Date"
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
-            <input type="time" onChange={(e) => setTime(e.target.value)}/>
+            <input type="time" onChange={(e) => setTime(e.target.value)} />
             <textarea
               placeholder="Event Description"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-            ></textarea><br/>
-          
-          
-          
+            ></textarea>
+            <br />
 
             <button type="submit">Add Event</button>
           </form>
@@ -221,7 +261,10 @@ function ClubPage(props) {
               >
                 {event.title}
               </h4>
-               <img src={event.image} />
+              <img
+                src={url + `api/event/image/${clubId}/${event.eventId}`}
+                style={{ maxWidth: "650px" }}
+              />
               <p
                 style={{
                   fontFamily: "CourierNewPS-ItalicMT",
@@ -230,15 +273,7 @@ function ClubPage(props) {
               >
                 {event.date}
               </p>
-              <p
-                style={{
-                  fontFamily: "CourierNewPS-ItalicMT",
-                  fontWeight: "bold",
-                }}
-              >
-                {event.time}
-              </p>
-              
+
               <textarea
                 style={{
                   fontFamily: "CourierNewPS-ItalicMT",
@@ -246,11 +281,13 @@ function ClubPage(props) {
                   width: "720px",
                   height: "100px",
                 }}
-                value={event.description}
+                value={event.eventDesc}
               ></textarea>
-              
+
               <br />
-              <button onClick={() => handleDeleteEvent(index)}>Delete</button>
+              <button onClick={() => handleDeleteEvent(event.eventId)}>
+                Delete
+              </button>
               <br />
               <br />
             </div>
