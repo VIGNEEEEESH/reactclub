@@ -224,10 +224,11 @@ function ClubPage() {
               type="file"
               onChange={uploadFile}
               accept="image/png, image/jpeg,.jpg"
+              style={{maxWidth:"245px"}}
             ></input>
 
             
-             <input type="file" style={{width:"245px"}} onChange={uploadFile} accept="image/png, image/jpeg,.jpg"></input>
+            
 
             <input
               type="date"
