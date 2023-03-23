@@ -5,6 +5,7 @@ import "../Css files/COEpage.css";
 import { useParams } from "react-router-dom";
 import url from "../Baseurl";
 import { notification } from "antd";
+import { useSelector } from "react-redux";
 function COEpage() {
   const [boxCount, setBoxCount] = useState(0);
 
@@ -42,7 +43,7 @@ function COEpage() {
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
-
+  const auth=useSelector((state)=>state.auth);
   const handleAddEvent = async (e) => {
     e.preventDefault();
     if (time === "") {
@@ -204,6 +205,8 @@ function COEpage() {
           >
             Event Calendar
           </h2>
+          {console.log(`param ${id} >>> ${auth.coeId}`)}
+          {auth.coeId?.toString() ===id?.toString()?
           <form onSubmit={handleAddEvent}>
             <input
               type="text"
@@ -235,7 +238,7 @@ function COEpage() {
             <br />
 
             <button type="submit">Add Event</button>
-          </form>
+          </form>:null}
         </div>
         <br />
         <div className="calendar-body">

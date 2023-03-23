@@ -5,6 +5,7 @@ import "../../Css files/ClubPage.css";
 import { useParams } from "react-router-dom";
 import url from "../../Baseurl";
 import { notification } from "antd";
+import { useSelector } from "react-redux";
 function ClubPage() {
   const [boxCount, setBoxCount] = useState(0);
 
@@ -17,6 +18,7 @@ function ClubPage() {
       setBoxCount(boxCount - 1);
     }
   };
+  
   const { clubId } = useParams();
   useEffect(() => {
     const getClubFromDB = async () => {
@@ -42,7 +44,7 @@ function ClubPage() {
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
-
+  const auth=useSelector((state)=>state.auth);
   const handleAddEvent = async (e) => {
     e.preventDefault();
     if (time === "") {
@@ -212,6 +214,8 @@ function ClubPage() {
           >
             Event Calendar
           </h2>
+          {console.log(`param ${clubId} >>> ${auth.clubId}`)}
+          {auth.clubId?.toString() ===clubId?.toString()?
           <form onSubmit={handleAddEvent}>
             <input
               type="text"
@@ -245,7 +249,7 @@ function ClubPage() {
             <br />
 
             <button type="submit">Add Event</button>
-          </form>
+          </form>:null}
         </div>
         <br />
         <div className="calendar-body">

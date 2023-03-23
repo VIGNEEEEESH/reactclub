@@ -5,14 +5,17 @@ import pw from "../components/images/pw.png"
 import url from '../Baseurl'
 import bg from "../components/images/light rays.png"
 import loginImg from '../components/images/robot.png'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { notification } from 'antd';
+import { loginSucess,loginFail } from '../Redux/Slices/authSlice';
 
 
 function Login() {
   
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
+  const dispatch =useDispatch();
+  const state=useSelector((state)=>state.auth);
   const handleEmailChange = (event) => {
     setEmail({value: event.target.value})
   }
@@ -36,9 +39,17 @@ function Login() {
       body: JSON.stringify({...formValues})
     }
     )
+    const json=await response.json();
+    if(response.status===200){
+      console.log(json.clubId);
+      dispatch(loginSucess(json));
+      console.log(">>>>.",state)
+    }else{
+      dispatch(loginFail(json));
+    }
     
-    const resJSON = await response.json();
-    console.log(resJSON)
+
+    console.log(json)
   }
   
    function myFunction(){
