@@ -8,10 +8,11 @@ import loginImg from '../components/images/robot.png'
 import { useDispatch, useSelector } from 'react-redux';
 import { notification } from 'antd';
 import { loginSucess,loginFail } from '../Redux/Slices/authSlice';
+import { useNavigate } from 'react-router-dom';
 
 
 function Login() {
-  
+  const navigate=useNavigate();
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const dispatch =useDispatch();
@@ -41,9 +42,9 @@ function Login() {
     )
     const json=await response.json();
     if(response.status===200){
-      console.log(json.clubId);
+      console.log(`clubId>>${json.clubId} | coeId>>${json.coeId}`);
       dispatch(loginSucess(json));
-      console.log(">>>>.",state)
+      navigate("/");
     }else{
       dispatch(loginFail(json));
     }
@@ -84,7 +85,7 @@ function Login() {
             <img src={un} height="25px"/>  <input onChange={handleEmailChange} className="o" type="text" placeholder="Email"/><br/><br/>
             <img src={pw} height="25px"/>    <input onChange={handlePasswordChange} className="o" type="password" id="myInput"  placeholder="Password"/><br/><br/>
             <input type="checkbox" id="showImageButton" onClick={myFunction}/>&nbsp; Show Password <br/><br/>
-            <input type="submit" />
+            <input  type="submit" value="Log-In"/>
             </form>
           </div>
         </div>

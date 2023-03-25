@@ -8,11 +8,12 @@ import { notification } from "antd";
 import { useSelector } from "react-redux";
 function COEpage() {
   const [boxCount, setBoxCount] = useState(0);
-
+  const COE_ID=useSelector((state)=>state.auth);
+  
   const addBox = () => {
     setBoxCount(boxCount + 1);
   };
-
+  
   const removeBox = () => {
     if (boxCount > 0) {
       setBoxCount(boxCount - 1);
@@ -43,7 +44,6 @@ function COEpage() {
   const [date, setDate] = useState("");
   const [description, setDescription] = useState("");
   const [time, setTime] = useState("");
-  const auth=useSelector((state)=>state.auth);
   const handleAddEvent = async (e) => {
     e.preventDefault();
     if (time === "") {
@@ -205,8 +205,8 @@ function COEpage() {
           >
             Event Calendar
           </h2>
-          {console.log(`param ${id} >>> ${auth.coeId}`)}
-          {auth.coeId?.toString() ===id?.toString()?
+          {console.log(`param ${id} >>> ${JSON.stringify(COE_ID)}`)}
+          {COE_ID.coeId?.toString() ===id?.toString()?
           <form onSubmit={handleAddEvent}>
             <input
               type="text"

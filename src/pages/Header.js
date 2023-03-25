@@ -1,10 +1,16 @@
 import React from "react";
 import NavBrand from "../components/images/Woxsen.png"
-import {NavLink, useNavigate, Link} from "react-router-dom"
+import {NavLink, Link} from "react-router-dom"
 import "../Css files/Header.css"
-class Header extends React.Component {
-    render(){
-        return (
+import { useDispatch, useSelector } from "react-redux";
+import { logoutSuccess } from "../Redux/Slices/authSlice";
+
+
+  
+  export const Header = () => {
+    const isAuthorised=useSelector(state=>state.auth.isAuthorised);
+    const dispatch =useDispatch();
+    return (
             <div className="Header">
             <nav className="navbar navbar-expand-lg navbar-light bg-dark " bg-blackdata-bs-theme="dark">
         <div className="container-fluid">
@@ -28,7 +34,9 @@ class Header extends React.Component {
               <NavLink className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : "nav-link text-light")} to="/COE" >COE</NavLink>
             </li>
             <li className="nav-item">
-              <NavLink className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : "nav-link text-light")} to="/Login" >Log-In</NavLink>
+              {!isAuthorised?<NavLink className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : "nav-link text-light")} to="/Login">Log-In</NavLink>
+              :<NavLink onClick={()=>{dispatch(logoutSuccess())}} className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : "nav-link text-light")} to="/Login">Log-Out</NavLink>
+              }
             </li>
             
           </ul>
@@ -38,5 +46,5 @@ class Header extends React.Component {
             );
         
         }
-    }
+    
 export default Header

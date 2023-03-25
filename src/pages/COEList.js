@@ -35,15 +35,15 @@ const COEList = () => {
             
           {coesList.map((entry) => (
             <div className="col">
-              <div className="card">
-                <Link to={`/COEpage/${entry.id}`}>
+              <div className="card" onClick={() => ListPage(entry)}>
+                
                   {" "}
                   <img onClick={() => ListPage(entry)}
                     src={url + `api/coe/${entry.id}/image/logo`}
                     className="card-img-top"
                     alt="..."
                   />
-                </Link>
+                
                 <div className="card-body">
                   <center>
                     <h4

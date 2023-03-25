@@ -214,7 +214,7 @@ function ClubPage() {
           >
             Event Calendar
           </h2>
-          {console.log(`param ${clubId} >>> ${auth.clubId}`)}
+          {console.log(`param ${clubId} >>> ${JSON.stringify(auth)}`)}
           {auth.clubId?.toString() ===clubId?.toString()?
           <form onSubmit={handleAddEvent}>
             <input
