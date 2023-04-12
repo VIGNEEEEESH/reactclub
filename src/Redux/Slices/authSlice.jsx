@@ -11,11 +11,14 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
     loginSucess: (state, action) => {
+      console.log("Inside login success",JSON.stringify(action.payload));
       state.isAuthorised = true;
-      if (action.payload.clubId !== null) {
+
+      if (action.payload.clubId !== undefined) {
         state.clubId = action.payload.clubId;
       } else {
         state.coeId = action.payload.coeId;
+        console.log("Inside coe else",JSON.stringify(state));
       }
     },
     loginFail: (state) => {

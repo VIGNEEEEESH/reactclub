@@ -11,7 +11,7 @@ import { logoutSuccess } from "../Redux/Slices/authSlice";
     const isAuthorised=useSelector(state=>state.auth.isAuthorised);
     const dispatch =useDispatch();
     return (
-            <div className="Header">
+            <div className="Header" style={{width:"100%"}}>
             <nav className="navbar navbar-expand-lg navbar-light bg-dark " bg-blackdata-bs-theme="dark">
         <div className="container-fluid">
           <Link className="navbar-brand" to="/"><img src={NavBrand} width="25%"/></Link>
@@ -21,7 +21,7 @@ import { logoutSuccess } from "../Redux/Slices/authSlice";
        
           <ul className="nav nav-pills">
           <li className="nav-item">
-              <NavLink className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : " nav-link text-light")} to="/Admin" >Admin</NavLink>
+          {isAuthorised? <NavLink className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : " nav-link text-light")} to="/Admin" >Admin</NavLink>:null}
             </li>
           <li className="nav-item">
               <NavLink className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : " nav-link text-light")} to="/" >Home</NavLink>

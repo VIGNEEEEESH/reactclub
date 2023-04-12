@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import "../Css files/AddSchool.css";
+import "../Css files/AddAdmin.css";
 import un from "../components/images/user.png"
 import pw from "../components/images/pw.png"
 import bg from "../components/images/light rays.png"
@@ -9,18 +9,22 @@ import { notification } from 'antd';
 import loginImg from '../components/images/robot.png'
 
 
-function AddSchool() {
-  const [schoolName, setSchoolName] = useState("")
+function AddAdmin() {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
 
-  const handleSchoolNameChange = (event) => {
-    setSchoolName({value: event.target.value})
+  const handleEmailChange = (event) => {
+    setEmail({value: event.target.value})
+  }
+  const handlePasswordChange = (event) => {
+    setPassword({value: event.target.value})
   }
   const onsubmit = async (event) =>{
     event.preventDefault();
     
     const formValues = {
-      "schoolName": schoolName.value,
-      
+      "email": email.value,
+      "password":password.value
       
     }
     console.log(formValues)
@@ -28,7 +32,7 @@ function AddSchool() {
     
     
       
-        const Schoolresponse = await fetch(url +"api/school/", {
+        const Schoolresponse = await fetch(url +"api/admin", {
           method: "POST",
           body: JSON.stringify({...formValues}),
           headers: {
@@ -38,18 +42,30 @@ function AddSchool() {
     const SchoolResponseJson = await Schoolresponse.json()
         if(SchoolResponseJson.success=="true"){
           notification.success({
-            message: `School ${formValues.name} successfully created`,
+            message: `Admin ${formValues.email} successfully created`,
             placement:'topRight'
           })
         }else{
           notification.error({
-            message: `School ${formValues.name} is not created`,
+            message: `Admin ${formValues.email} is not created`,
             placement:'top'
           })
 
         }
 
         
+  }
+  function myFunction(){
+    var x = document.getElementById("myInput");
+    if (x.type === "password") {
+      
+      
+      x.type = "text";
+      
+    } else {
+      x.type = "password";
+      
+    }
   }
 
     return (
@@ -59,11 +75,14 @@ function AddSchool() {
       <div className="form" onSubmit={onsubmit}>
           <div className="loginImage">
             <img src={loginImg} width="300" style={{position: 'relative'}} alt="login"/><br/><br/><br/>
-            <form>
-            <h1>Name of the School</h1>  <input onChange={handleSchoolNameChange} className="o" type="text" placeholder="Woxsen"/><br/><br/>
-           
             
-            <input type="submit"/>
+            <form >
+            <h1>Add Admin</h1>
+            <img src={un} height="25px"/> &nbsp; <input onChange={handleEmailChange} className="o" type="text" placeholder="Email"/><br/><br/>
+            <img src={pw} height="25px"/>  &nbsp;  <input onChange={handlePasswordChange} className="o" type="password" id="myInput"  placeholder="Password"/><br/><br/>
+            <input type="checkbox" id="showImageButton" onClick={myFunction}/>&nbsp; Show Password <br/><br/>
+            <input  type="submit" value="Log-In"/>
+            
             </form>
           </div>
         </div>
@@ -79,4 +98,4 @@ function AddSchool() {
 
 
 
-export default AddSchool;
+export default AddAdmin;

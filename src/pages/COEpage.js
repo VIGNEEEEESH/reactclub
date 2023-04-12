@@ -4,12 +4,18 @@ import CardGroup from "react-bootstrap/CardGroup";
 import "../Css files/COEpage.css";
 import { useParams } from "react-router-dom";
 import url from "../Baseurl";
-import { notification } from "antd";
+import { Button, notification } from "antd";
 import { useSelector } from "react-redux";
+import EditCOE from "./EditCOE"
+
 function COEpage() {
   const [boxCount, setBoxCount] = useState(0);
-  const COE_ID=useSelector((state)=>state.auth);
-  
+  const coeId=useSelector((state)=>state.auth);
+  const [showEditDetails, setShowEditDetails] = useState(false)
+
+  const goToEditCOEDetails = () => {
+    setShowEditDetails(!showEditDetails)
+  }
   const addBox = () => {
     setBoxCount(boxCount + 1);
   };
@@ -139,7 +145,9 @@ function COEpage() {
   };
 
   return (
-    <div className="AAD">
+    <React.Fragment>    
+      { !showEditDetails &&
+    <div className="AAD" style={{overflow:"auto"}}>
       <CardGroup style={{ border: "none" }}>
         <div className="One">
           <Card className="cardGroup" style={{ border: "none" }}>
@@ -147,10 +155,15 @@ function COEpage() {
               variant="top"
               src={url + `api/coe/${id}/image/logo`}
               id="Twelve"
-              width="70%"
+              width="60%"
+              style={{marginLeft:"60px"}}
+              
             />
           </Card>
+          <h2 style={{marginTop:"40px",fontFamily: "CourierNewPS-ItalicMT",
+              fontWeight: "bold",textAlign:"center" }}>{coeInfo.name}</h2>
         </div>
+        
         <Card className="cardGroup" style={{ border: "none" }}>
           <Card.Body>
             <div className="misso">
@@ -174,6 +187,7 @@ function COEpage() {
           </Card.Body>
         </Card>
       </CardGroup>
+      {coeId.coeId?.toString() ===id?.toString()?  <div style={{textAlign:"right"}}>  <Button style={{ textAlign:"right", marginRight:"20px"}} type="primary" danger size="large" onClick={goToEditCOEDetails}>Edit COE</Button></div>:null}
       <br />
 
       <div className="chairpersons">
@@ -205,8 +219,8 @@ function COEpage() {
           >
             Event Calendar
           </h2>
-          {console.log(`param ${id} >>> ${JSON.stringify(COE_ID)}`)}
-          {COE_ID.coeId?.toString() ===id?.toString()?
+          {console.log(`param ${id} >>> ${JSON.stringify(coeId)}`)}
+          {coeId.coeId?.toString() ===id?.toString()?
           <form onSubmit={handleAddEvent}>
             <input
               type="text"
@@ -249,7 +263,7 @@ function COEpage() {
               style={{
                 boxShadow:
                   "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
-              }}
+              overflow:"auto"}}
             >
               <h4
                 style={{
@@ -297,7 +311,7 @@ function COEpage() {
       <br />
       <br />
 
-      <div>
+      {/* <div>
         <center>
           <p id="pic">
             <u>
@@ -324,8 +338,10 @@ function COEpage() {
             <div className="box1" key={index}></div>
           ))}
         </div>
-      </div>
-    </div>
+      </div>  */}
+    </div>}
+    { showEditDetails  && <EditCOE coeinfo={coeInfo}></EditCOE>}
+    </React.Fragment>
   );
 }
 export default COEpage;

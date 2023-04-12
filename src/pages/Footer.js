@@ -4,7 +4,7 @@ import "../Css files/Footer.css"
 class Footer extends React.Component{
     render(){
         return(
-            <div className="Footer">
+            <div className="Footer" style={{overflow:"auto"}}>
                 <footer className="footer">
     <div className="waves">
       <div className="wave" id="wave1"></div>
@@ -29,12 +29,12 @@ class Footer extends React.Component{
     <ul className="menu">
       <li className="menu__item"><a className="menu__link" href="/">Home</a></li>
       <li className="menu__item"><a className="menu__link" href="#">About</a></li>
-      <li className="menu__item"><a className="menu__link" href="#">Services</a></li>
-      <li className="menu__item"><a className="menu__link" href="#">Team</a></li>
+      
+      
       <li className="menu__item"><a className="menu__link" href="#">Contact</a></li>
     </ul>
     
-    <h5  >Designed by Aditi Baggu, Harsh Morayya, Vignesh Devamulla</h5>
+    <h5  >Designed and Developed by <a style={{color:"white"}}href="https://www.linkedin.com/in/aditi-baggu-701151227/">Aditi Baggu</a>, <a style={{color:"white"}}href="https://www.linkedin.com/in/harsh-morayya/">Harsh Morayya</a>, <a style={{color:"white"}}href="https://www.linkedin.com/in/vignesh-devamulla-5b2b88219/">Vignesh Devamulla</a></h5>
     
   </footer>
   

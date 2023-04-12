@@ -17,6 +17,9 @@ export default function Admin() {
   function NewSchool(){
     navigate("/AddSchool")
   }
+  function AddAdmin(){
+    navigate("/AddAdmin")
+  }
   
   function DeleteClub(){
     navigate("/DeleteClub")
@@ -27,9 +30,12 @@ export default function Admin() {
   function DeleteSchool(){
     navigate("/DeleteSchool")
   }
+  function DeleteAdmin(){
+    navigate("/DeleteAdmin")
+  }
   return (
     
-    <div className="Admin">
+    <div className="Admin" >
       <center>
     
 

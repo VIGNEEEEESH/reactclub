@@ -51,7 +51,7 @@ function DeleteClub() {
         
        
     return (
-      <div className="DeleteClub ">
+      <div className="DeleteClub " style={{overflow:"auto"}}>
       <center>
       <div className="form" onSubmit={onsubmit}>
           <div className="loginImage">

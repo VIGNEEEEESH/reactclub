@@ -1,10 +1,10 @@
-import React, {  useState } from 'react'
+import React, {  useEffect, useState } from 'react'
 import axios from 'axios';
 import url from '../Baseurl'
 import "../Css files/EditClub.css"
-import { notification } from 'antd';
+import { Button, notification } from 'antd';
 
-function EditClub() {
+function EditClub(props) {
   
   const [ss,setSs]=useState("True")
   const [clubName, setClubName] = useState("")
@@ -19,6 +19,16 @@ function EditClub() {
   const [clubSchools, setClubSchools] = useState(0)
   const [clubLogo, setClubLogo] = useState("")
   const [file, setFile] = useState();
+
+  useEffect(() => {
+    console.log(props)
+    setClubName(props.clubinfo.clubName)
+    setClubPresident(props.clubinfo.presidentName)
+    setClubVicePresident(props.clubinfo.vicePresidentName)
+    setClubMission(props.clubinfo.mission)
+    setClubVision(props.clubinfo.vision)
+  }, [])
+  
 
   const handleClubNameChange = (event) => {
     setClubName({value: event.target.value})
@@ -73,63 +83,45 @@ function EditClub() {
 
   const onsubmit = async (event) =>{
       event.preventDefault();
-      console.log(clubName)
       const formValues = {
-        "clubName": clubName.value,
-        "mission": clubMission.value,
-        "vision":clubVision.value,
-        "presidentName":clubPresident.value,
-        "vicePresidentName":clubVicePresident.value,
-        "email":clubPresidentEmail.value,
-        "password":clubPassword.value,
-        "clubSchoolType":clubUniversity.value,
-        "schoolId":clubSchools.value,
+        "clubName": clubName.value ?? clubName,
+        "mission": clubMission.value ?? clubMission,
+        "vision":clubVision.value ?? clubVision,
+        "presidentName":clubPresident.value ?? clubPresident,
+        "vicePresidentName":clubVicePresident.value ?? clubVicePresident,
       }
+
       console.log(formValues)
-      const response=await fetch(url+"api/user/",{
-        method:"POST",
+      const response=await fetch(url+`api/club/${props.clubinfo.clubId}`,{
+        method:"PATCH",
         headers:{
           "Content-Type" : "application/json"
         },
         body: JSON.stringify({...formValues})
       })
       console.log(await response.json())
-      if(response.ok){
-        if(!formValues.schoolId || formValues.schoolId == 0){
-        delete formValues.schoolId;
-        }
-        const clubresponse = await fetch(url +"api/club/", {
-          method: "POST",
-          body: JSON.stringify({...formValues}),
-          headers: {
-            "Content-Type" : "application/json"
-          }
-        })
+        
 
-        const clubResponseJson = await clubresponse.json()
-        const clubId = await clubResponseJson.clubId;
+      notification.success({
+        message: `Club ${formValues.clubName} successfully edited`,
+        description: `Reload to see changes`,
+        placement:'topRight'
+      })
 
         const formData = new FormData();
         formData.append("image", file);
+        if(!!file){
         try {
           const res = await axios.put(url+ 
-            `api/club/${clubId}/image/logo`,
+            `api/club/${props.clubinfo.clubId}/image/logo`,
             formData
-          );
-          console.log(res);
-          
-          notification.success({
-            message: `Club ${formValues.clubName} successfully edited`,
-            description: `Club email = ${formValues.email}\nPassword = ${formValues.password}\n
-            ID = ${clubId}. Please save the credentials as they can't be seen again`,
-            placement:'topRight'
-          })
-
-        } catch (ex) {
+          );          
+         } catch (ex) {
           console.log(ex);
         }
-        
+ 
       }
+      
   }
 
   
@@ -154,48 +146,43 @@ function EditClub() {
   }
   
   };
+  function on(){
+    window.location.reload(true)
+  }
 
   
 
 
     return (
-      <div className="EditClub">
+      <div className="EditClub" style={{overflow:"auto"}}>
         <center>
+        <Button style={{marginTop:"20px"}} onClick={on}>Back</Button>
       <div className="rectangle">
-        <form onSubmit={onsubmit}>
+        
+        <form onSubmit={onsubmit} >
           <br/>
             <label>Name of the Club: &nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input onChange={handleClubNameChange} type="text" id="nc" required/><br/><br/>
+            <input defaultValue={props.clubinfo.clubName} onChange={handleClubNameChange} type="text" id="nc" required/><br/><br/>
 
             <label>Mission of the Club: &nbsp;</label>
-            <textarea onChange={handleClubMissionChange} required/><br/><br/>
+            <textarea defaultValue={props.clubinfo.mission} onChange={handleClubMissionChange} required/><br/><br/>
 
             <label>Vision of the Club: &nbsp;&nbsp;</label>
-            <textarea onChange={handleClubVisionChange} required/><br/><br/>
+            <textarea  defaultValue={props.clubinfo.vision} onChange={handleClubVisionChange} required/><br/><br/>
 
             <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input onChange={handleClubPresidentChange} type="text" placeholder='President' required/><br/><br/>
+            <input defaultValue={props.clubinfo.presidentName} onChange={handleClubPresidentChange} type="text" placeholder='President' required/><br/><br/>
 
             <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input onChange={handleClubVicePresidentChange} type="text" placeholder='Vice-President' required/><br/><br/>
+            <input defaultValue={props.clubinfo.vicePresidentName} onChange={handleClubVicePresidentChange} type="text" placeholder='Vice-President' required/><br/><br/>
 
             <label>Email-ID of the : &nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input onChange={handleClubPresidentEmailChange} type="text" placeholder='President' required/><br/><br/>
-            <label>Create a password : &nbsp;&nbsp;</label>
-            <input onChange={handleClubPasswordChange} type="password" required/><br/><br/>
+            <input onChange={handleClubPresidentEmailChange} type="text" placeholder='President' /><br/><br/>
+            <label>Change password : &nbsp;&nbsp;</label>
+            <input onChange={handleClubPasswordChange} type="password" /><br/><br/>
 
-            <label>Select the type of the Club: &nbsp;</label><br/>
-            <input onChange={handleClubUniversityChange} type="radio"  name="school" value="University Level" required/>&nbsp;
-            <label > University Level</label>&emsp;
-            <input onChange={handleClubUniversityChange} type="radio" name="school" value="School Level" required/>&nbsp;
-            <label>School Level</label><br/>
-            <select onChange={handleClubSchoolsChange} hidden={ss} required>
-              { schoolsList.map((entry) => 
-                <option value={entry.schoolId}>{entry.schoolName}</option>
-              )} 
-              
-            </select><br/>
-          <label style={{display:"inline"}}> Upload Club's Logo:</label> <input id="file" onChange={uploadFile} style={{display:"inline"}}type="file" required accept="image/png, image/jpeg,.jpg"/>
+           
+          <label style={{display:"inline"}}> Upload Club's Logo:</label> <input id="file" onChange={uploadFile} style={{display:"inline"}}type="file"  accept="image/png, image/jpeg,.jpg"/>
 <input type="submit" ></input>
             
         </form>

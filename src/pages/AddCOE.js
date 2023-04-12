@@ -111,7 +111,7 @@ function AddCOE() {
   };
   
     return (
-      <div className="Addco">
+      <div className="Addco" style={{overflow:"auto"}}>
         <center>
       <div className="rectangle">
         <form onSubmit={onsubmit}>

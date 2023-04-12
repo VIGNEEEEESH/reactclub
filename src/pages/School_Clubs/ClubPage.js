@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import CardGroup from "react-bootstrap/CardGroup";
+import EditClub from "../EditClub"
 import "../../Css files/ClubPage.css";
 import { useParams } from "react-router-dom";
 import url from "../../Baseurl";
-import { notification } from "antd";
+import { Button, notification } from "antd";
 import { useSelector } from "react-redux";
 function ClubPage() {
   const [boxCount, setBoxCount] = useState(0);
@@ -135,8 +136,16 @@ function ClubPage() {
     }
   };
 
+  const [showEditDetails, setShowEditDetails] = useState(false)
+
+  const goToEditClubDetails = () => {
+    setShowEditDetails(!showEditDetails)
+  }
+
   return (
-    <div className="Tech">
+    <React.Fragment>    
+      { !showEditDetails && 
+      <div className="Tech" style={{overflow:"auto"}}>
       <CardGroup>
         <div className="One">
           <Card className="cardGroup">
@@ -144,8 +153,11 @@ function ClubPage() {
               variant="top"
               src={url + `api/club/${clubId}/image/logo`}
               id="Twelve"
-              width="100%"
+              width="90%"
+              style={{overflow:"revert"}}
             />
+            <h2 style={{marginTop:"40px",fontFamily: "CourierNewPS-ItalicMT",
+              fontWeight: "bold",textAlign:"center" }}>{clubInfo.clubName}</h2>
           </Card>
         </div>
         <Card className="cardGroup">
@@ -171,13 +183,14 @@ function ClubPage() {
           </Card.Body>
         </Card>
       </CardGroup>
+      {auth.clubId?.toString() ===clubId?.toString()?  <div style={{textAlign:"right"}}>  <Button style={{marginBottom:"10px", textAlign:"right", marginRight:"20px"}} type="primary" danger size="large" onClick={goToEditClubDetails}>Edit Club</Button></div>:null}
       <br />
 
-      <div className="presidents">
+      <div className="presidents" style={{overflow:"clip"}}>
         <br />
         <br />
         <center>
-          <div className="card-group d-flex align-items-center justify-content-center">
+          <div className="card-group d-flex align-items-center justify-content-center" >
             <div className="ab ">
               <div className="card " id="PR">
                 <div className="card-body">
@@ -214,9 +227,12 @@ function ClubPage() {
           >
             Event Calendar
           </h2>
+          <br/>
           {console.log(`param ${clubId} >>> ${JSON.stringify(auth)}`)}
           {auth.clubId?.toString() ===clubId?.toString()?
-          <form onSubmit={handleAddEvent}>
+          
+          <form onSubmit={handleAddEvent} style={{overflow:"clip"}}>
+            <br/>
             <input
               type="text"
               placeholder="Event Title"
@@ -252,7 +268,7 @@ function ClubPage() {
           </form>:null}
         </div>
         <br />
-        <div className="calendar-body">
+        <div className="calendar-body" >
           {events.map((event, index) => (
             <div
               key={index}
@@ -260,7 +276,8 @@ function ClubPage() {
               style={{
                 boxShadow:
                   "rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px",
-              }}
+                  overflow:"auto"
+              }}const
             >
               <h4
                 style={{
@@ -274,6 +291,7 @@ function ClubPage() {
                 src={url + `api/event/image/${clubId}/${event.eventId}`}
                 style={{ maxWidth: "650px" }}
               />
+              <br/><br/>
               <p
                 style={{
                   fontFamily: "CourierNewPS-ItalicMT",
@@ -307,7 +325,7 @@ function ClubPage() {
       <br />
       <br />
       <br />
-
+{/* 
       <div>
         <center>
           <p id="pic">
@@ -335,8 +353,11 @@ function ClubPage() {
             <div className="box1" key={index}></div>
           ))}
         </div>
-      </div>
-    </div>
+      </div> */}
+    </div>}
+    { showEditDetails  && <EditClub clubinfo={clubInfo}></EditClub>}
+    </React.Fragment>
+
   );
 }
 export default ClubPage;

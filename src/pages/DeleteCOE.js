@@ -51,7 +51,7 @@ function DeleteCOE() {
         
        
     return (
-      <div className="Addsc ">
+      <div className="Addsc " style={{overflow:"auto"}}>
       <center>
       <div className="form" onSubmit={onsubmit}>
           <div className="loginImage">

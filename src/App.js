@@ -21,13 +21,16 @@ import AddSchool from "./pages/AddSchool";
 import DeleteSchool from "./pages/DeleteSchool";
 import DeleteClub from "./pages/DeleteClub";
 import DeleteCOE from "./pages/DeleteCOE";
-import EditSchool from "./pages/EditSchool";
+
 import EditClub from "./pages/EditClub";
 import EditCOE from "./pages/EditCOE";
 import Gallery from "./pages/Gallery";
 import COEList from "./pages/COEList";
 import COEpage from "./pages/COEpage";
 import SpecificClubList from "./pages/SpecificClubList";
+import AdminLogIn from "./pages/AdminLogIn";
+import AddAdmin from "./pages/AddAdmin";
+
 
 function App() {
   return (
@@ -54,13 +57,15 @@ function App() {
           <Route exact path="/Calender" element={<Calendar />} />
           <Route exact path="/COEList" element={<COEList />} />
           <Route exact path="/Login" element={<Login />} />
+          <Route exact path="/AdminLogIn" element={<AdminLogIn />} />
           <Route exact path="/DeleteSchool" element={<DeleteSchool />} />
           <Route exact path="/DeleteClub" element={<DeleteClub />} />
           <Route exact path="/DeleteCOE" element={<DeleteCOE />} />
-          <Route exact path="/EditSchool" element={<EditSchool />} />
+          <Route exact path="/AddAdmin" element={<AddAdmin />} />
+          
           <Route exact path="/EditClub" element={<EditClub />} />
           <Route exact path="/EditCOE" element={<EditCOE />} />
-          <Route exact path="/Gallery" element={<Gallery />} />
+          <Route exact path="/Gallery7932" element={<Gallery />} />
           <Route
             exact
             path="/SpecificClubList/:schoolId"

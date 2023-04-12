@@ -1,32 +1,27 @@
-if(!!resJSON.clubId){
-    setGlobalState({
-      isauth:true,
-      clubId:resJSON.clubId
-    })
-  }
-  if(!!resJSON.coeId){
-    setGlobalState({
-      isauth:true,
-      coeId:resJSON.coeId
-    })
-  }
-  else{
-    notification.error({
-      message: `Your Email or Password is incorrect`,
-      description: `Please enter the correct crudentials given by the Admin`,
-      placement:'topRight'
-    })
-  }
+<form onSubmit={onsubmit}>
+          <br/>
+            <label>Name of the COE: &nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" onChange={handleCOENameChange} required/><br/><br/>
 
+            <label>Mission of the COE: &nbsp;</label>
+            <textarea  onChange={handleCOEMissionChange} required/><br/><br/>
 
-  <div className="chairpersons">
-<br/><br/>
-<div className="cards-list">
-<div className="card1">
-  <div className="card_title title-white">
-  <p id="co">Co-Chairpersons</p> </div>
-  <div className="card_body"> <p>  </p></div>
- 
-</div>
-</div>
-</div>
+            <label>Vision of the COE: &nbsp;&nbsp;</label>
+            <textarea onChange={handleCOEVisionChange} required/><br/><br/>
+
+            <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" onChange={handleCOEMentorChange} placeholder='Mentor' required/><br/><br/>
+
+            <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <input type="text" onChange={handleCOECoFounderChange} placeholder='Co-Founder' required/><br/><br/>
+
+            <label>Email-ID of the : &nbsp;&nbsp;&nbsp;</label>
+            <input type="text" onChange={handleCOECoFounderEmailChange} placeholder='Co-Founder' required/><br/><br/>
+            <label>Create a password : &nbsp;</label>
+            <input type="password" onChange={handleCOEPasswordChange} required/><br/><br/>
+
+            
+          <label style={{display:"inline"}}> Upload COE's Logo:</label> <input style={{display:"inline"}}type="file" onChange={uploadFile} required accept="image/png, image/jpeg,.jpg"/>
+          <input type="submit" />
+            
+        </form>

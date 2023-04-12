@@ -73,7 +73,7 @@ function SchoolClubs() {
 
   return (
     <center>
-      <div className="Sclub">
+      <div className="Sclub" style={{overflow:"auto"}}>
 
         {schoolsList.map((entry) =>
           <div className="card-class">

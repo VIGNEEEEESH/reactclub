@@ -1,17 +1,32 @@
-import React, {  useState } from 'react'
-import "../Css files/EditCOE.css"
-import url from '../Baseurl'
+import React, {  useEffect, useState } from 'react'
 import axios from 'axios';
+import url from '../Baseurl'
+import "../Css files/EditClub.css"
 import { notification } from 'antd';
-function EditCOE() {
-  const [COEName, setCOEName] = useState("")
-  const [COEMission, setCOEMission] = useState("")
-  const [COEVision, setCOEVision] = useState("")
-  const [COEMentor, setCOEMentor] = useState("")
-  const [COECoFounder, setCOECoFounder] = useState("")
-  const [COECoFounderEmail, setCOECoFounderEmail] = useState("")
-  const [COEPassword, setCOEPassword] = useState("")
+
+function EditCOE(props) {
+  
+  const [ss,setSs]=useState("True")
+  const [coeName, setCOEName] = useState("")
+  const [coeMission, setCOEMission] = useState("")
+  const [coeVision, setCOEVision] = useState("")
+  const [coeMentor, setCOEMentor] = useState("")
+  const [coeCoFounder, setCOECoFounder] = useState("")
+  const [coeCoFounderEmail, setCOECoFounderEmail] = useState("")
+  const [cloePassword, setCOEPassword] = useState("")
+  
+  const [coeLogo, setCOELogo] = useState("")
   const [file, setFile] = useState();
+
+  useEffect(() => {
+    console.log(props)
+    setCOEName(props.coeinfo.name)
+    setCOEMentor(props.coeinfo.mentors)
+    setCOECoFounder(props.coeinfo.coFounderName)
+    setCOEMission(props.coeinfo.mission)
+    setCOEVision(props.coeinfo.vision)
+  }, [])
+  
 
   const handleCOENameChange = (event) => {
     setCOEName({value: event.target.value})
@@ -34,60 +49,58 @@ function EditCOE() {
   const handleCOEPasswordChange = (event) => {
     setCOEPassword({value: event.target.value})
   }
+  const handleCOELogoChange = (event) => {
+    setCOELogo({value: event.target.value})
+    const value=event.taget.value
+    console.log(value)
+  }
+  
 
   const onsubmit = async (event) =>{
-    event.preventDefault();
-    
-    const formValues = {
-      "name": COEName.value,
-      "mission": COEMission.value,
-      "vision":COEVision.value,
-      "mentors":COEMentor.value,
-      "coFounderName":COECoFounder.value,
-      "email":COECoFounderEmail.value,
-      "password":COEPassword.value,
-      
-    }
-    console.log(formValues)
-    
-    const response=await fetch(url+"api/user/",{
-      method:"POST",
-      headers:{
-        "Content-Type" : "application/json"
-      },
-      body: JSON.stringify({...formValues})
-    })
-    console.log(await response.json())
-      if(response.ok){
-        const coeresponse = await fetch(url +`api/coe/${formValues.email}`, {
-          method: "POST",
-          body: JSON.stringify({...formValues}),
-          headers: {
-            "Content-Type" : "application/json"
-          }
-        })
-    const coeResponseJson = await coeresponse.json()
-        const coeId = await coeResponseJson.id;
-    const formData = new FormData();
+      event.preventDefault();
+      const formValues = {
+        "name": coeName.value ?? coeName,
+        "mission": coeMission.value ?? coeMission,
+        "vision":coeVision.value ?? coeVision,
+        "mentors":coeMentor.value ?? coeMentor,
+        "coFounderName":coeCoFounder.value ?? coeCoFounder,
+      }
+
+
+      console.log(formValues)
+      const response=await fetch(url+`api/coe/${props.coeinfo.id}`,{
+        method:"PATCH",
+        headers:{
+          "Content-Type" : "application/json"
+        },
+        body: JSON.stringify({...formValues})
+      })
+      console.log(await response.json())
+        
+
+      notification.success({
+        message: `Club ${formValues.clubName} successfully edited`,
+        description: `Reload to see changes`,
+        placement:'topRight'
+      })
+
+        const formData = new FormData();
         formData.append("image", file);
+        if(!!file){
         try {
           const res = await axios.put(url+ 
-            `api/coe/${coeId}/image/logo`,
+            `api/club/${props.clubinfo.clubId}/image/logo`,
             formData
-          );
-          console.log(res);
-          
-          notification.success({
-            message: `COE ${formValues.name} successfully created`,
-            description: `COE email = ${formValues.email}\nPassword = ${formValues.password}\n
-            ID = ${coeId}. Please save the credentials as they can't be seen again`,
-            placement:'topRight'
-          })
-
-        } catch (ex) {
+          );          
+         } catch (ex) {
           console.log(ex);
         }
-  }}
+ 
+      }
+      
+  }
+
+  
   const uploadFile = (e) => {
     setFile(e.target.files[0]);
     const target = e.target
@@ -109,39 +122,41 @@ function EditCOE() {
   }
   
   };
+
   
+
+
     return (
-      <div className="EditCOE">
+      <div className="EditClub" style={{overflow:"auto"}}>
         <center>
       <div className="rectangle">
-        <form onSubmit={onsubmit}>
+      <form onSubmit={onsubmit}>
           <br/>
             <label>Name of the COE: &nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" onChange={handleCOENameChange} required/><br/><br/>
+            <input type="text" defaultValue={props.coeinfo.name} onChange={handleCOENameChange} /><br/><br/>
 
             <label>Mission of the COE: &nbsp;</label>
-            <textarea  onChange={handleCOEMissionChange} required/><br/><br/>
+            <textarea defaultValue={props.coeinfo.mission} onChange={handleCOEMissionChange} /><br/><br/>
 
             <label>Vision of the COE: &nbsp;&nbsp;</label>
-            <textarea onChange={handleCOEVisionChange} required/><br/><br/>
+            <textarea defaultValue={props.coeinfo.vision} onChange={handleCOEVisionChange} /><br/><br/>
 
             <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" onChange={handleCOEMentorChange} placeholder='Mentor' required/><br/><br/>
+            <input defaultValue={props.coeinfo.mentors} type="text" onChange={handleCOEMentorChange} placeholder='Mentor' /><br/><br/>
 
             <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
-            <input type="text" onChange={handleCOECoFounderChange} placeholder='Co-Founder' required/><br/><br/>
+            <input defaultValue={props.coeinfo.coFounderName} type="text" onChange={handleCOECoFounderChange} placeholder='Co-Founder' /><br/><br/>
 
             <label>Email-ID of the : &nbsp;&nbsp;&nbsp;</label>
-            <input type="text" onChange={handleCOECoFounderEmailChange} placeholder='Co-Founder' required/><br/><br/>
+            <input  type="text" onChange={handleCOECoFounderEmailChange} placeholder='Co-Founder' /><br/><br/>
             <label>Create a password : &nbsp;</label>
-            <input type="password" onChange={handleCOEPasswordChange} required/><br/><br/>
+            <input  type="password" onChange={handleCOEPasswordChange} /><br/><br/>
 
             
-          <label style={{display:"inline"}}> Upload COE's Logo:</label> <input style={{display:"inline"}}type="file" onChange={uploadFile} required accept="image/png, image/jpeg,.jpg"/>
+          <label style={{display:"inline"}}> Upload COE's Logo:</label> <input style={{display:"inline"}}type="file" onChange={uploadFile}  accept="image/png, image/jpeg,.jpg"/>
           <input type="submit" />
             
-        </form>
-       </div>
+        </form></div>
        </center>
       </div>
     )

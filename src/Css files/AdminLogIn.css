@@ -1,16 +1,16 @@
-.EditSchool {
+.Login {
     
    
     position:relative;
     padding-bottom:70px;
    
 }
-.EditSchool .o{
+.Login .o{
   padding:10px;
 
 }
 
-.EditSchool .form{
+.form{
   position:relative;
   bottom:-50px;
 }

@@ -184,7 +184,9 @@ class StudentCouncilpage extends React.Component{
     
     <div className="card-body " id="ab">
       <h3 className="card-title" style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Mission</h3>
-      <h5 className="card-text" style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</h5>
+      <h5 className="card-text" style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>We are here to enhance the talent and spirit of all the students at the university.
+We bring the change and the new culture, which adds value to the program and the other aspects.
+</h5>
       
     </div>
   </div>
@@ -198,7 +200,8 @@ class StudentCouncilpage extends React.Component{
     
     <div className="card-body" id="cd">
       <h3 className="card-title" style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Vision</h3>
-      <h5 className="card-text" style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</h5>
+      <h5 className="card-text" style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>We look into the Collaboration work and handle the co-operation of multiple events on campus.
+Student Council monitors 30 clubs and has a helping hand in all the events taken care</h5>
      
     </div>
   </div>

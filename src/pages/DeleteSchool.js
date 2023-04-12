@@ -50,7 +50,7 @@ function DeleteSchool() {
         
        
     return (
-      <div className="DeleteSchool ">
+      <div className="DeleteSchool " style={{overflow:"auto"}}>
       <center>
       <div className="form" onSubmit={onsubmit}>
           <div className="loginImage">

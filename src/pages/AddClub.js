@@ -159,10 +159,10 @@ function AddClub() {
 
 
     return (
-      <div className="AddClub">
+      <div className="AddClub" >
         <center>
       <div className="rectangle">
-        <form onSubmit={onsubmit}>
+        <form onSubmit={onsubmit} >
           <br/>
             <label>Name of the Club: &nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input onChange={handleClubNameChange} type="text" id="nc" required/><br/><br/>
@@ -185,7 +185,7 @@ function AddClub() {
             <input onChange={handleClubPasswordChange} type="password" required/><br/><br/>
 
             <label>Select the type of the Club: &nbsp;</label><br/>
-            <input onChange={handleClubUniversityChange} type="radio"  name="school" value="University Level" required/>&nbsp;
+            <input onChange={handleClubUniversityChange} type="radio" name="school" value="University Level" required/>&nbsp;
             <label > University Level</label>&emsp;
             <input onChange={handleClubUniversityChange} type="radio" name="school" value="School Level" required/>&nbsp;
             <label>School Level</label><br/>

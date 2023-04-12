@@ -17,7 +17,7 @@ class COE extends React.Component{
     render(){
         return(
 
-            <div className="SC">
+            <div className="SC" style={{overflow:"auto"}}>
            
             <div className="class_slide">
             <div className="slider">
@@ -164,8 +164,8 @@ class COE extends React.Component{
   <div className="card ">
     
     <div className="card-body " id="ab">
-      <h5 className="card-title">Mission</h5>
-      <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      <h3 className="card-title" style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Mission</h3>
+      <h5 className="card-text" style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>To build an institution of excellence in higher learning led through disruption, develop a multi-cultural yet inclusive cohort of global professionals and contribute towards societal welfare.</h5>
       
     </div>
   </div>
@@ -178,8 +178,8 @@ class COE extends React.Component{
   <div className="card">
     
     <div className="card-body" id="cd">
-      <h5 className="card-title">Vision</h5>
-      <p className="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+      <h3 className="card-title" style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>Vision</h3>
+      <h5 className="card-text" style={{fontFamily:"CourierNewPS-ItalicMT",fontWeight:"bold"}}>To innovate & transform the conventional educational processes through the application of knowledge, research and industry feedback to further scale up community benefit.</h5>
      
     </div>
   </div>

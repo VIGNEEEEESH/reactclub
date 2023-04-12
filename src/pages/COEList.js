@@ -5,6 +5,7 @@ import { useNavigate, Link, Navigate } from "react-router-dom";
 import url from "../Baseurl";
 
 const COEList = () => {
+  const navigate=useNavigate();
   useEffect(() => {
     const getCoesList = async () => {
       const response = await fetch(url + "api/coe");
@@ -25,10 +26,10 @@ const COEList = () => {
   const [coesList, setCoesList] = useState([]);
 
   const ListPage = (entry) => {
-    Navigate(`/COEpage/${entry.id}`)
+    navigate(`/COEpage/${entry.id}`)
   }
   return (
-    <div className="Uclub">
+    <div className="Uclub" style={{overflow:"auto"}}>
       <div className="container">
         <div className="row row-cols-1 row-cols-md-4 g-4">
           
