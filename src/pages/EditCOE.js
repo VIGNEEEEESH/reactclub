@@ -127,7 +127,7 @@ function EditCOE(props) {
 
 
     return (
-      <div className="EditClub" style={{overflow:"auto"}}>
+      <div className="EditClub" >
         <center>
       <div className="rectangle">
       <form onSubmit={onsubmit}>
@@ -141,10 +141,10 @@ function EditCOE(props) {
             <label>Vision of the COE: &nbsp;&nbsp;</label>
             <textarea defaultValue={props.coeinfo.vision} onChange={handleCOEVisionChange} /><br/><br/>
 
-            <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label>Mentor name: &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input defaultValue={props.coeinfo.mentors} type="text" onChange={handleCOEMentorChange} placeholder='Mentor' /><br/><br/>
 
-            <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label>Co-Founder name : &nbsp;&nbsp;&nbsp;</label>
             <input defaultValue={props.coeinfo.coFounderName} type="text" onChange={handleCOECoFounderChange} placeholder='Co-Founder' /><br/><br/>
 
             <label>Email-ID of the : &nbsp;&nbsp;&nbsp;</label>

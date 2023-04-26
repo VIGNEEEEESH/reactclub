@@ -8,6 +8,7 @@ import UniversityClubs from "./pages/UniversityClubs";
 import SchoolClubs from "./pages/SchoolClubs";
 import ClubPage from "./pages/School_Clubs/ClubPage";
 import Login from "./pages/Login";
+import Error from "./components/images/Error 404 Page Under Construction Concept Social Media-3.png"
 
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import COE from "./pages/COE";
@@ -30,9 +31,11 @@ import COEpage from "./pages/COEpage";
 import SpecificClubList from "./pages/SpecificClubList";
 import AdminLogIn from "./pages/AdminLogIn";
 import AddAdmin from "./pages/AddAdmin";
+import { useSelector } from "react-redux";
 
 
 function App() {
+  const {isAuthorised,coeId,clubId}=useSelector(state=>state.auth);
   return (
     <div className="App">
       <Router>
@@ -48,7 +51,7 @@ function App() {
           <Route exact path="/ClubsDivision" element={<ClubsDivision />} />
           <Route exact path="/UniversityClubs" element={<UniversityClubs />} />
           <Route exact path="/SchoolClubs" element={<SchoolClubs />} />
-          <Route exact path="/Admin" element={<Admin />} />
+          {isAuthorised&&coeId===null&&clubId===null?<Route exact path="/Admin" element={<Admin />} />:null}
           <Route exact path="/AddClub" element={<AddClub />} />
           <Route exact path="/AddCOE" element={<AddCOE />} />
           <Route exact path="/AddSchool" element={<AddSchool />} />
@@ -72,6 +75,9 @@ function App() {
             element={<SpecificClubList />}
           />
           <Route path="/ClubPage/:clubId" element={<ClubPage />}></Route>
+          <Route path="*" element={<div>
+            <center><img src={Error} height="400px" style={{marginTop:"100px"}}></img></center>
+          </div>}></Route>
         </Routes>
         <Footer />
       </Router>

@@ -60,7 +60,7 @@ function AddSchool() {
           <div className="loginImage">
             <img src={loginImg} width="300" style={{position: 'relative'}} alt="login"/><br/><br/><br/>
             <form>
-            <h1>Name of the School</h1>  <input onChange={handleSchoolNameChange} className="o" type="text" placeholder="Woxsen"/><br/><br/>
+            <h1>Name of the School</h1>  <input onChange={handleSchoolNameChange} className="o" type="text" placeholder="Woxsen" required/><br/><br/>
            
             
             <input type="submit"/>

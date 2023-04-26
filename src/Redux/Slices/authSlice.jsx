@@ -16,9 +16,13 @@ export const authSlice = createSlice({
 
       if (action.payload.clubId !== undefined) {
         state.clubId = action.payload.clubId;
-      } else {
+      } else if(action.payload.coeId !== undefined) {
         state.coeId = action.payload.coeId;
         console.log("Inside coe else",JSON.stringify(state));
+      }else{
+        state.coeId =null;
+        state.clubId =null;
+
       }
     },
     loginFail: (state) => {

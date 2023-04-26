@@ -34,7 +34,7 @@ class Footer extends React.Component{
       <li className="menu__item"><a className="menu__link" href="#">Contact</a></li>
     </ul>
     
-    <h5  >Designed and Developed by <a style={{color:"white"}}href="https://www.linkedin.com/in/aditi-baggu-701151227/">Aditi Baggu</a>, <a style={{color:"white"}}href="https://www.linkedin.com/in/harsh-morayya/">Harsh Morayya</a>, <a style={{color:"white"}}href="https://www.linkedin.com/in/vignesh-devamulla-5b2b88219/">Vignesh Devamulla</a></h5>
+    <h5>Designed and Developed by <a style={{color:"white"}}href="https://www.linkedin.com/in/aditi-baggu-701151227/">Aditi Baggu</a>, <a style={{color:"white"}}href="https://www.linkedin.com/in/harsh-morayya/">Harsh Morayya</a>, <a style={{color:"white"}}href="https://www.linkedin.com/in/arunchandra-boini/">Arunchandra Boini</a>, <a style={{color:"white"}}href="https://www.linkedin.com/in/vignesh-devamulla-5b2b88219/">Vignesh Devamulla</a></h5>
     
   </footer>
   

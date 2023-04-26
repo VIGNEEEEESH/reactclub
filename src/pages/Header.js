@@ -8,7 +8,7 @@ import { logoutSuccess } from "../Redux/Slices/authSlice";
 
   
   export const Header = () => {
-    const isAuthorised=useSelector(state=>state.auth.isAuthorised);
+    const {isAuthorised,coeId,clubId}=useSelector(state=>state.auth);
     const dispatch =useDispatch();
     return (
             <div className="Header" style={{width:"100%"}}>
@@ -21,7 +21,7 @@ import { logoutSuccess } from "../Redux/Slices/authSlice";
        
           <ul className="nav nav-pills">
           <li className="nav-item">
-          {isAuthorised? <NavLink className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : " nav-link text-light")} to="/Admin" >Admin</NavLink>:null}
+          {isAuthorised&&coeId===null&&clubId===null? <NavLink className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : " nav-link text-light")} to="/Admin" >Admin</NavLink>:null}
             </li>
           <li className="nav-item">
               <NavLink className={({isActive}) => (isActive ? " bg-light active text-dark nav-link" : " nav-link text-light")} to="/" >Home</NavLink>

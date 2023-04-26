@@ -154,7 +154,7 @@ function EditClub(props) {
 
 
     return (
-      <div className="EditClub" style={{overflow:"auto"}}>
+      <div className="EditClub" >
         <center>
         <Button style={{marginTop:"20px"}} onClick={on}>Back</Button>
       <div className="rectangle">
@@ -170,13 +170,13 @@ function EditClub(props) {
             <label>Vision of the Club: &nbsp;&nbsp;</label>
             <textarea  defaultValue={props.clubinfo.vision} onChange={handleClubVisionChange} required/><br/><br/>
 
-            <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label>President Name : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input defaultValue={props.clubinfo.presidentName} onChange={handleClubPresidentChange} type="text" placeholder='President' required/><br/><br/>
 
-            <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label>Vice-President Name : &nbsp;</label>
             <input defaultValue={props.clubinfo.vicePresidentName} onChange={handleClubVicePresidentChange} type="text" placeholder='Vice-President' required/><br/><br/>
 
-            <label>Email-ID of the : &nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label>President Email : &nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input onChange={handleClubPresidentEmailChange} type="text" placeholder='President' /><br/><br/>
             <label>Change password : &nbsp;&nbsp;</label>
             <input onChange={handleClubPasswordChange} type="password" /><br/><br/>

@@ -111,27 +111,27 @@ function AddCOE() {
   };
   
     return (
-      <div className="Addco" style={{overflow:"auto"}}>
+      <div className="Addco" >
         <center>
       <div className="rectangle">
         <form onSubmit={onsubmit}>
           <br/>
-            <label>Name of the COE: &nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label>Name of the COE : &nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="text" onChange={handleCOENameChange} required/><br/><br/>
 
-            <label>Mission of the COE: &nbsp;</label>
+            <label>Mission of the COE : &nbsp;</label>
             <textarea  onChange={handleCOEMissionChange} required/><br/><br/>
 
-            <label>Vision of the COE: &nbsp;&nbsp;</label>
+            <label>Vision of the COE : &nbsp;&nbsp;</label>
             <textarea onChange={handleCOEVisionChange} required/><br/><br/>
 
-            <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label>Mentor name : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input type="text" onChange={handleCOEMentorChange} placeholder='Mentor' required/><br/><br/>
 
-            <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label>Co-Founder name : &nbsp;&nbsp;&nbsp;</label>
             <input type="text" onChange={handleCOECoFounderChange} placeholder='Co-Founder' required/><br/><br/>
 
-            <label>Email-ID of the : &nbsp;&nbsp;&nbsp;</label>
+            <label>Co-Founder Email : &nbsp;&nbsp;&nbsp;</label>
             <input type="text" onChange={handleCOECoFounderEmailChange} placeholder='Co-Founder' required/><br/><br/>
             <label>Create a password : &nbsp;</label>
             <input type="password" onChange={handleCOEPasswordChange} required/><br/><br/>

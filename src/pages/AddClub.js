@@ -130,6 +130,13 @@ function AddClub() {
         }
         
       }
+      else{
+        notification.error({
+          message: `Club ${formValues.name} is not created`,
+          placement:'top'
+        })
+
+      }
   }
 
   
@@ -151,6 +158,7 @@ function AddClub() {
           placement:'top'
         })
       }
+     
   }
   
   };
@@ -164,27 +172,27 @@ function AddClub() {
       <div className="rectangle">
         <form onSubmit={onsubmit} >
           <br/>
-            <label>Name of the Club: &nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label>Name of the Club : &nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input onChange={handleClubNameChange} type="text" id="nc" required/><br/><br/>
 
-            <label>Mission of the Club: &nbsp;</label>
+            <label>Mission of the Club : &nbsp;</label>
             <textarea onChange={handleClubMissionChange} required/><br/><br/>
 
-            <label>Vision of the Club: &nbsp;&nbsp;</label>
+            <label>Vision of the Club : &nbsp;&nbsp;</label>
             <textarea onChange={handleClubVisionChange} required/><br/><br/>
 
-            <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label>President Name : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input onChange={handleClubPresidentChange} type="text" placeholder='President' required/><br/><br/>
 
-            <label>Name of the : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label>Vice-President Name : &nbsp;</label>
             <input onChange={handleClubVicePresidentChange} type="text" placeholder='Vice-President' required/><br/><br/>
 
-            <label>Email-ID of the : &nbsp;&nbsp;&nbsp;&nbsp;</label>
+            <label>President Email : &nbsp;&nbsp;&nbsp;&nbsp;</label>
             <input onChange={handleClubPresidentEmailChange} type="text" placeholder='President' required/><br/><br/>
             <label>Create a password : &nbsp;&nbsp;</label>
             <input onChange={handleClubPasswordChange} type="password" required/><br/><br/>
 
-            <label>Select the type of the Club: &nbsp;</label><br/>
+            <label>Select the type of the Club : &nbsp;</label><br/>
             <input onChange={handleClubUniversityChange} type="radio" name="school" value="University Level" required/>&nbsp;
             <label > University Level</label>&emsp;
             <input onChange={handleClubUniversityChange} type="radio" name="school" value="School Level" required/>&nbsp;

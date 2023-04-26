@@ -27,7 +27,7 @@ const UniversityClubs = () => {
     <div className="Uclub">
       <div className="container">
         <div className="row row-cols-1 row-cols-md-4 g-4">
-          <div className="col">
+          
             
           {uniClubsList.map((entry) => (
             <div className="col">
@@ -60,7 +60,7 @@ const UniversityClubs = () => {
 
      
         </div>
-      </div>
+      
   
   );
 };
